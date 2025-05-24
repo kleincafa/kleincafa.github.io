@@ -1,1 +1,333 @@
-Hello, World!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Portfolio</title>
+
+</head>
+<body>
+    <!-- HEADER: NAVBAR + HERO -->
+    <header class="hero-header">
+      <nav>
+        <div class="left">
+            <a href="/">Klein Cafa</a>
+        </div>
+        <div class="right">
+            <a href="http://github.com/cafakleinn" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-github"></i>
+                <span>GitHub</span>
+            </a>
+
+            <a href="http://linkedin.com/in/cafakleinn" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-linkedin"></i>
+                <span>LinkedIn</span>
+            </a>
+
+            <a href="mailto:cafalklein@gmail.com">
+                <i class="fa-solid fa-envelope"></i>                
+                <span>Email</span>
+            </a>
+        </div>
+      </nav>
+      <!-- SECTION 1: Hero Intro -->
+      <section id="hero-intro" class="hero-intro-section">
+        <div class="text">
+          <h2>Hello, World! I'm Klein 👋</h2>
+          <a href="#about" class="scroll-down"><i class="fa-solid fa-arrow-down"></i></a>
+        </div>
+      </section>
+    </header>
+
+    <main>
+
+        <!-- SECTION 2: About -->
+        <section id="about" class="about-section">
+            <div class="text">
+            <p>I am a Third Year Computer Science student at Ontario Tech University, motivated with passion for bringing ideas to life through 
+                code. Coding since 2020, I continue to develop and design software that is sustainable, efficient, ethical and impactful for everyone. My 
+                mission is to make applications accessible and responsive to everyone with the help of AI to enhance my possibilities and explore creative 
+                processes while emphasizing ethics and interactivity.</p>
+            <div class="links">
+                <a href="#projects"><i class="fa-solid fa-folder"></i><span>Projects</span></a>
+                <a href="#skills"><i class="fa-solid fa-code"></i><span>Skills</span></a>
+                <a href="#contact"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
+            </div>
+          </div>
+          <div class="headshot">
+            <img id="headshot" src="images/headshots/img1.webp" alt="klein cafa headshot">
+          </div>
+        </section>
+
+         <!-- SECTION 3: Projects -->
+         <!-- <section id="projects" class="projects-section">
+            <h2>Projects</h2>
+            
+            <div class="group">
+                <div class="person-details">
+                    <img src="images/testimony-headshot.webp">
+                    <p>John Doe</p>
+                    <p>Lorem ipsum dolor sit.</p>
+                </div>
+
+                <div class="test">
+                    "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores magni unde, esse doloremque, repellendus veritatis officia minima neque id sed porro ipsum accusamus sunt magnam ea natus vero dicta. Laborum beatae, eaque reiciendis repudiandae doloremque sapiente dolorem. Fuga dolor eligendi, fugit laudantium nesciunt laborum magni nostrum enim quos ullam quae?"
+                </div>
+            </div>
+         </section> -->
+         <section id="projects" class="projects-section">
+            <h2>Projects</h2>
+            <div class="text">
+                (Click images to expand)
+            </div>
+            <div class="project-cells">
+                <div class="project-cell">
+                    <div class="slideshow">
+                      <img src="images/projects/SUSTAIN/img1.webp" class="slide active" alt="Project image 1">
+                      <img src="images/projects/SUSTAIN/img2.webp" class="slide" alt="Project image 2">
+                      <img src="images/projects/SUSTAIN/img3.webp" class="slide" alt="Project image 3">
+                      <img src="images/projects/SUSTAIN/img4.webp" class="slide" alt="Project image 4">
+                      <button class="prev">&#10094;</button>
+                      <button class="next">&#10095;</button>
+                    </div>
+                    <h3>SUSTAIN: The Environmentally-Friendly AI</h3>
+                    <h4>HackHive 2025 Project | February 2025 - Present</h4>
+                    <p>SUSTAIN is an environmentally-friendly, token-optimized AI wrapper designed to reduce compute costs and increase productivity. By filtering out 
+                        irrelevant words and phrases from prompts, SUSTAIN minimizes the number of tokens sent to and received from the AI, saving energy and boosting 
+                        performance.</p>
+                    <a href="https://sustainai.ca/" class="project-btn" target="_blank" rel="noopener noreferrer">Try it out!</a>
+                    <a href="https://github.com/djleamen/SUSTAIN" class="project-btn" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+                  </div>
+
+                <div class="project-cell">
+                    <div class="slideshow">
+                        <img src="images/projects/travelGo/img1.webp" class="slide active" alt="Project image 1">
+                        <img src="images/projects/travelGo/img2.webp" class="slide" alt="Project image 2">
+                        <img src="images/projects/travelGo/img3.webp" class="slide" alt="Project image 3">
+                        <img src="images/projects/travelGo/img4.webp" class="slide" alt="Project image 4">
+                        <img src="images/projects/travelGo/img5.webp" class="slide" alt="Project image 5">
+                        <button class="prev">&#10094;</button>
+                        <button class="next">&#10095;</button>
+                    </div>
+                    <h3>travelGo: Travel Package Management</h3>
+                    <h4>CSCI 2040U Final Project | April 2025</h4>
+                    <p>travelGo is a Travel Package Management System designed to help administrators organize, track, and modify travel packages efficiently. The 
+                        platform ensures seamless management of travel offerings, including inventory and pricing adjustments.</p>
+                    <a href="https://github.com/mila-launen-otu/travelGo" class="project-btn" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+                </div>
+                <div class="project-cell">
+                    <div class="slideshow">
+                      <img src="images/projects/LockIn/img1.webp" class="slide active" alt="Project image 1">
+                      <img src="images/projects/LockIn/img2.webp" class="slide" alt="Project image 2">
+                      <img src="images/projects/LockIn/img3.webp" class="slide" alt="Project image 3">
+                      <button class="prev">&#10094;</button>
+                      <button class="next">&#10095;</button>
+                    </div>
+                    <h3>LockIn: Studying Manageable, Collaborative and Productive </h3>
+                    <h4>CSCI 2020U Final Project | April 2025</h4>
+                    <p>LockIn is a student-focused desktop application designed to make studying more manageable and collaborative. Built with a clean, modern user 
+                        interface, LockIn allows users to create an account, log in, connect with others through a real-time chat system powered by a central chat 
+                        server, work through practice questions, stay productive using an integrated Pomodoro timer, as well as many other such features. Whether 
+                        studying solo or with peers, LockIn creates a supportive virtual environment to help students stay 
+                        focused and engaged.</p>
+                    <a href="https://github.com/OntarioTech-CS-program/w25-csci2020u-finalproject-w25-team12" class="project-btn" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+                </div>
+            </div>
+          </section>
+
+         <!-- SECTION 4: Skills -->
+         <section id="skills" class="skills-section">
+            <h2>Skills</h2>
+            <div class="cells">
+                <div class="cell">
+                    <img src="images/skills/java.webp" alt="java logo">
+                    <span>Java</span>
+                </div>
+
+                <div class="cell">
+                    <img src="images/skills/python.webp" alt="python logo">
+                    <span>Python</span>
+                </div>
+
+                <div class="cell">
+                    <img src="images/skills/cplusplus.webp" alt="c++ logo">
+                    <span>C++</span>
+                </div>
+
+                <div class="cell">
+                    <img src="images/skills/git.webp" alt="git logo">
+                    <span>Git</span>
+                </div>
+
+                <div class="cell">
+                    <img src="images/skills/github.webp" alt="github logo">
+                    <span>GitHub</span>
+                </div>
+
+                <div class="cell">
+                    <img src="images/skills/intellij.webp" alt="intellij logo">
+                    <span>IntelliJ</span>
+                </div>
+
+                <div class="cell">
+                    <img src="images/skills/vscode.webp" alt="vscode logo">
+                    <span>VSCode</span>
+                </div>
+
+                <div class="cell">
+                    <img src="images/skills/pycharm.webp" alt="pycharm logo">
+                    <span>PyCharm</span>
+                </div>
+
+                <div class="cell">
+                    <img src="images/skills/eclipse.webp" alt="eclipse logo">
+                    <span>Eclipse</span>
+                </div>
+
+                <div class="cell">
+                    <img src="images/skills/latex.webp" alt="latex logo">
+                    <span>LaTeX</span>
+                </div>
+
+                <div class="cell">
+                    <img src="images/skills/matlab.webp" alt="matlab logo">
+                    <span>Matlab</span>
+                </div>
+            </div>
+            <!-- <div class="text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius sunt impedit minus, voluptas quidem mollitia soluta nesciunt aliquam dolorum veniam corrupti eaque eum laborum vitae beatae perspiciatis iure quia, dignissimos praesentium amet repellat? Omnis similique eum voluptatem ab eveniet. Quibusdam obcaecati voluptas, nihil ea voluptatibus quos tenetur aut voluptatum ex!
+            </div> -->
+
+         </section>
+
+         <!-- SECTION 5: Contact -->
+         <section id="contact" class="contact-section">
+            <h2>Contact</h2>
+
+            <div class="group">
+                <div class="text">
+                    Contact me for any inquiries, collaborations, or just to say hi! I would love to hear from you!
+                </div>
+
+                <form>
+                    <label for="name">Name</label>
+                    <input type="text" id="name">
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email">
+
+                    <label for="message">Message</label>
+                    <textarea id="message" cols="30" rows="30"></textarea>
+
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+         </section>
+     </main>
+
+     <script>
+        const headshotList = [
+          "img1.webp",
+          "img8.webp",
+          "img3.webp",
+          "img4.webp",
+          "img5.webp",
+        //   "img6.webp",
+          "img7.webp",
+          "img9.webp",
+          "img10.webp",
+          "img11.webp",
+          "img12.webp",
+          "img13.webp",
+          "img14.webp",
+          "img15.webp",
+          "img16.webp",
+          "img17.webp"
+        ];
+        let headshotElement = document.getElementById("headshot");
+        let headshotIndex = 0;
+        function updateHeadshot() {
+          const nextIndex = (headshotIndex + 1) % headshotList.length;
+          const newImg = document.createElement("img");
+          newImg.src = "images/headshots/" + headshotList[nextIndex];
+          newImg.alt = "klein cafa headshot";
+          newImg.classList.add("headshot-img");
+          newImg.style.opacity = 0;
+
+          const container = headshotElement.parentElement;
+          container.appendChild(newImg);
+
+          requestAnimationFrame(() => {
+            newImg.style.opacity = 1;
+            headshotElement.style.opacity = 0;
+          });
+
+          newImg.onload = () => {
+            setTimeout(() => {
+              container.removeChild(headshotElement);
+              newImg.id = "headshot";
+              newImg.classList.remove("headshot-img");
+              headshotElement = newImg;
+            }, 500);
+          };
+
+          headshotIndex = nextIndex;
+        }
+        setInterval(updateHeadshot, 5000);
+        updateHeadshot();
+      </script>
+
+      <script>
+        document.querySelectorAll('.slideshow').forEach(slideshow => {
+          const slides = slideshow.querySelectorAll('.slide');
+          const nextBtn = slideshow.querySelector('.next');
+          const prevBtn = slideshow.querySelector('.prev');
+          let index = 0;
+
+          const showSlide = (i) => {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[i].classList.add('active');
+          };
+
+          const nextSlide = () => {
+            index = (index + 1) % slides.length;
+            showSlide(index);
+          };
+
+          const prevSlide = () => {
+            index = (index - 1 + slides.length) % slides.length;
+            showSlide(index);
+          };
+
+          nextBtn.addEventListener('click', nextSlide);
+          prevBtn.addEventListener('click', prevSlide);
+
+          slides.forEach(slide => {
+            slide.addEventListener('click', () => {
+              const modal = document.getElementById("modal");
+              modal.style.display = "flex";
+              modal.querySelector("img").src = slide.src;
+            });
+          });
+
+          setInterval(nextSlide, 5000);
+        });
+      </script>
+
+      <div id="modal" class="modal-overlay" style="display: none;" onclick="this.style.display='none'">
+        <img src="" alt="Expanded view" />
+      </div>
+</body>
+</html>
