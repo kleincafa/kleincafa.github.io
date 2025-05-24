@@ -47,7 +47,7 @@
       <!-- SECTION 1: Hero Intro -->
       <section id="hero-intro" class="hero-intro-section">
         <div class="text">
-          <h2><span id="typewriter-text" class="typewriter"></span><span class="cursor">|</span></h2>
+          <h2><span id="typewriter-text" class="typewriter"></span><span class="cursor"></span></h2>
           <a href="#about" class="scroll-down"><i class="fa-solid fa-arrow-down"></i></a>
         </div>
       </section>
@@ -63,6 +63,7 @@
                 mission is to make applications accessible and responsive to everyone with the help of AI to enhance my possibilities and explore creative 
                 processes while emphasizing ethics and interactivity.</p>
             <div class="links">
+                <a href="Klein_Lester_Cafa_Resume.pdf" download><i class="fa-solid fa-file"></i><span>Download Resume</span></a>
                 <a href="#projects"><i class="fa-solid fa-folder"></i><span>Projects</span></a>
                 <a href="#skills"><i class="fa-solid fa-code"></i><span>Skills</span></a>
                 <a href="#contact"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
@@ -239,6 +240,14 @@
          </section>
      </main>
 
+     <!-- Modal markup moved above scripts to ensure DOM elements exist before JS runs -->
+     <div id="modal" class="modal-overlay" style="display: none;">
+       <button class="modal-prev">&#10094;</button>
+       <img src="" alt="Expanded view" />
+       <button class="modal-next">&#10095;</button>
+       <button class="modal-close">&times;</button>
+     </div>
+
      <script>
         const headshotList = [
           "img1.webp",
@@ -291,7 +300,12 @@
         updateHeadshot();
       </script>
 
+</script>
       <script>
+        // Modal navigation state
+        let currentModalSlides = [];
+        let currentModalIndex = 0;
+
         document.querySelectorAll('.slideshow').forEach(slideshow => {
           const slides = slideshow.querySelectorAll('.slide');
           const nextBtn = slideshow.querySelector('.next');
@@ -316,15 +330,39 @@
           nextBtn.addEventListener('click', nextSlide);
           prevBtn.addEventListener('click', prevSlide);
 
-          slides.forEach(slide => {
+          slides.forEach((slide, i) => {
             slide.addEventListener('click', () => {
               const modal = document.getElementById("modal");
               modal.style.display = "flex";
               modal.querySelector("img").src = slide.src;
+              currentModalSlides = Array.from(slides);
+              currentModalIndex = i;
             });
           });
 
           setInterval(nextSlide, 5000);
+        });
+
+        // Modal navigation handlers
+        document.querySelector('.modal-prev').addEventListener('click', e => {
+          e.stopPropagation();
+          if (currentModalSlides.length > 0) {
+            currentModalIndex = (currentModalIndex - 1 + currentModalSlides.length) % currentModalSlides.length;
+            document.querySelector("#modal img").src = currentModalSlides[currentModalIndex].src;
+          }
+        });
+
+        document.querySelector('.modal-next').addEventListener('click', e => {
+          e.stopPropagation();
+          if (currentModalSlides.length > 0) {
+            currentModalIndex = (currentModalIndex + 1) % currentModalSlides.length;
+            document.querySelector("#modal img").src = currentModalSlides[currentModalIndex].src;
+          }
+        });
+
+        document.querySelector('.modal-close').addEventListener('click', e => {
+          e.stopPropagation();
+          document.getElementById("modal").style.display = "none";
         });
       </script>
 </script>
@@ -336,12 +374,17 @@
 
         function typeCharacter() {
           if (charIndex < sentence.length) {
-            typewriterTarget.textContent += sentence.charAt(charIndex);
-            charIndex++;
+            if (sentence.slice(charIndex, charIndex + 5) === "Klein") {
+              typewriterTarget.innerHTML += `<span class="highlight">Klein</span>`;
+              charIndex += 5;
+            } else {
+              typewriterTarget.innerHTML += sentence.charAt(charIndex);
+              charIndex++;
+            }
             setTimeout(typeCharacter, 80);
           } else if (charIndex === sentence.length) {
             setTimeout(() => {
-              typewriterTarget.textContent += emoji;
+              typewriterTarget.innerHTML += `<span style="display:inline-block;">${emoji}</span>`;
             }, 150);
             charIndex++;
           }
@@ -349,9 +392,6 @@
 
         typeCharacter();
       </script>
-      <div id="modal" class="modal-overlay" style="display: none;" onclick="this.style.display='none'">
-        <img src="" alt="Expanded view" />
-      </div>
       <footer class="footer">
         <p>&copy; 2025 Klein Cafa. All rights reserved.</p>
       </footer>

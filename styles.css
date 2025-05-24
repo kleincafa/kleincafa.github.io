@@ -5,12 +5,21 @@
   line-height: 1.2;
   white-space: pre-wrap;
   word-break: break-word;
+  caret-color: transparent;
+}
+
+.typewriter {
+  position: relative;
 }
 
 .cursor {
   display: inline-block;
-  font-size: 60px;
+  width: 3px;
+  height: 1.5em;
+  background-color: var(--text-color);
   animation: blink 0.8s infinite;
+  vertical-align: bottom;
+  margin-left: 4px;
 }
 
 @keyframes blink {
@@ -19,7 +28,8 @@
 }
 :root {
     --text-color: #1a1c20;
-    --link-color: #4a76ee;
+    /* --link-color: #4a76ee; */
+    --link-color: #357944;
     --background-color: #eeeff1;
 }
 
@@ -51,7 +61,20 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 0 50px; 
-    height: 80px;
+    height: 50px;
+    /*
+    Below is to keep the navbar on top of the page
+    */
+    background-color: var(--background-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    /*
+    Above is to keep the navbar on top of the page
+    */
 }
 
 nav .left a {
@@ -128,6 +151,7 @@ nav .right a span {
 
 .about-section .text {
   flex: 5;
+  font-size: 15px;
 }
 
 .about-section .links {
@@ -238,7 +262,8 @@ nav .right a span {
   
   .project-cell {
     /* background-color: #000; /* dark card background */
-    border: 2px solid #2c97df; 
+    /* border: 2px solid #2c97df;  */
+    border: 2px solid #357944;
     border-radius: 10px;
     padding: 20px;
     flex: 1 1 calc(33.33% - 30px);
@@ -280,7 +305,8 @@ nav .right a span {
   
   .project-btn {
     padding: 10px 20px;
-    background: linear-gradient(to right, #2c97df, #409edd);
+    /* background: linear-gradient(to right, #2c97df, #409edd); */
+    background: linear-gradient(to right, #357944, #357944);
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -369,6 +395,36 @@ nav .right a span {
   border-radius: 10px;
 }
 
+.modal-overlay button {
+  position: absolute;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  font-size: 36px;
+  padding: 10px 20px;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.modal-prev {
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+}
+
+.modal-next {
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+.modal-close {
+  top: 20px;
+  right: 20px;
+  font-size: 32px;
+  background: none;
+}
+
 /* SECTION 3: Skills */
 .skills-section {
     padding: 0 50px;
@@ -412,7 +468,7 @@ nav .right a span {
 }
 
 .skills-section .cells .cell span {
-    font-size: 18px;
+    font-size: 15px;
 }
 
 /* SECTION 4: Contact */
@@ -434,6 +490,7 @@ nav .right a span {
 .contact-section .group .text {
     flex: 3;
     margin-top: 20px;
+    font-size: 15px;
 }
 
 .contact-section .group form {
@@ -590,4 +647,14 @@ nav .right a span {
   color: #888;
   padding: 20px 0;
   background-color: transparent;
+}
+/* Keep Navbar on Page */
+.hero-header {
+    padding-top: 50px;
+}
+/* Highlight class for typewriter animation */
+.highlight {
+    color: #357944;
+  /* color: #2c6338; */
+  /* color: #556b2f */
 }
