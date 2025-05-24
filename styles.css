@@ -1,3 +1,22 @@
+
+/* Typewriter effect */
+.typewriter {
+  font-size: 60px;
+  line-height: 1.2;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cursor {
+  display: inline-block;
+  font-size: 60px;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
 :root {
     --text-color: #1a1c20;
     --link-color: #4a76ee;
@@ -75,6 +94,10 @@ nav .right a span {
 
 .hero-intro-section h2 {
   font-size: 60px;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .hero-intro-section .scroll-down {
@@ -471,6 +494,16 @@ nav .right a span {
 
     .hero-section .headshot img{
         width: 300px;
+    }
+
+    /* About section stacks vertically with headshot on top */
+    .about-section {
+      flex-direction: column-reverse;
+      text-align: center;
+    }
+    .about-section .headshot {
+      justify-content: center;
+      margin-bottom: 30px;
     }
 
     /* SECTION 3: Projects */
