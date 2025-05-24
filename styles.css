@@ -419,6 +419,7 @@ nav .right a span {
 .contact-section {
     padding: 0 50px;
     margin-bottom: 100px;
+    max-width: 100%;
 }
 
 .contact-section h2 {
@@ -577,5 +578,6 @@ nav .right a span {
     /* SECTION 4: Contact */
     .contact-section {
         padding: 0 20px;
+        max-width: 100%;
     }
 }
