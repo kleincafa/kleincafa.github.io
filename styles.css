@@ -113,6 +113,8 @@ nav .right a span {
   background: url("images/bg.webp") no-repeat center center/cover;
   width: 100vw;
   margin-left: calc(-1 * ((100vw - 100%) / 2));
+  animation: fadeInBackground 1.5s ease-in-out forwards;
+  opacity: 0;
 }
 
 .hero-intro-section h2 {
@@ -251,6 +253,11 @@ nav .right a span {
   .projects-section h2 {
     font-size: 35px;
     margin-bottom: 15px;
+  }
+
+  .projects-section .text {
+    font-size: 15px;
+    margin-bottom: 30px;
   }
   
   .project-cells {
@@ -657,4 +664,21 @@ nav .right a span {
     color: #357944;
   /* color: #2c6338; */
   /* color: #556b2f */
+}
+
+@keyframes fadeInBackground {
+  to {
+    opacity: 1;
+  }
+}
+/* Fade-in Animation Section */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-section.visible {
+  opacity: 1;
+  transform: none;
 }

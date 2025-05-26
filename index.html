@@ -56,7 +56,7 @@
     <main>
 
         <!-- SECTION 2: About -->
-        <section id="about" class="about-section">
+        <section id="about" class="about-section fade-in-section">
             <div class="text">
             <p>I am a Third Year Computer Science student at Ontario Tech University, motivated with passion for bringing ideas to life through 
                 code. Coding since 2020, I continue to develop and design software that is sustainable, efficient, ethical and impactful for everyone. My 
@@ -90,7 +90,7 @@
                 </div>
             </div>
          </section> -->
-         <section id="projects" class="projects-section">
+         <section id="projects" class="projects-section fade-in-section">
             <h2>Projects</h2>
             <div class="text">
                 (Click images to expand)
@@ -151,7 +151,7 @@
           </section>
 
          <!-- SECTION 4: Skills -->
-         <section id="skills" class="skills-section">
+         <section id="skills" class="skills-section fade-in-section">
             <h2>Skills</h2>
             <div class="cells">
                 <div class="cell">
@@ -216,7 +216,25 @@
          </section>
 
          <!-- SECTION 5: Contact -->
-         <section id="contact" class="contact-section">
+         <section id="contact" class="contact-section fade-in-section">
+      <script>
+        // Fade-in effect on scroll for .fade-in-section elements
+        const faders = document.querySelectorAll('.fade-in-section');
+
+        const appearOnScroll = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          });
+        }, {
+          threshold: 0.1,
+        });
+
+        faders.forEach(section => {
+          appearOnScroll.observe(section);
+        });
+      </script>
             <h2>Contact</h2>
 
             <div class="group">
