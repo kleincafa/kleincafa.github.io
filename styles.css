@@ -48,6 +48,8 @@ body {
     background-color: var(--background-color);
     max-width: 1400px;
     margin: 0 auto;
+    position: relative;
+    z-index: 0;
 }
 
 a {
@@ -70,7 +72,7 @@ nav {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 100000;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     /*
     Above is to keep the navbar on top of the page
@@ -149,6 +151,8 @@ nav .right a span {
   align-items: center;
   padding: 50px;
   gap: 40px;
+  position: relative;
+  z-index: 0;
 }
 
 .about-section .text {
@@ -184,6 +188,7 @@ nav .right a span {
   position: relative;
   width: 350px;
   aspect-ratio: 1 / 1;
+  z-index: 0;
 }
 
 .about-section .headshot img,
@@ -199,6 +204,7 @@ nav .right a span {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: opacity 0.5s ease-in-out;
   opacity: 1;
+  z-index: 0;
 }
 
 /* SECTION 2: Projects */
@@ -681,4 +687,15 @@ nav .right a span {
 .fade-in-section.visible {
   opacity: 1;
   transform: none;
+}
+
+/* Prevent headshot images from blocking pointer events */
+.about-section .headshot img,
+.headshot-img {
+  pointer-events: none;
+}
+
+header.hero-header {
+  z-index: 9999;
+  position: relative;
 }
