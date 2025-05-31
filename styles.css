@@ -101,6 +101,12 @@ nav .right a span {
     margin-left: 5px;
 }
 
+.navbar-logo {
+  height: 35px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
 /* SECTION 1: Hero Intro */
 .hero-intro-section {
   display: flex;
