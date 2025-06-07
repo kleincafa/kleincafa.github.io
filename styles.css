@@ -88,13 +88,14 @@ nav .left a {
 nav .right a {
     color: var(--text-color);
     margin: 0 10px;
+    font-size: 14px;
 }
 
 nav .right a:last-child {
-    color: var(--background-color);
-    background-color: var(--text-color);
-    padding: 5px 15px;
-    border-radius: 5px;
+    color: var(--text-color);
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
 }
 
 nav .right a span {
