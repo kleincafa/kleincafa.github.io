@@ -1,3 +1,10 @@
+// Hamburger menu toggle
+const hamburger = document.getElementById("hamburger-toggle");
+const navRight = document.querySelector("nav .right");
+
+hamburger.addEventListener("click", () => {
+  navRight.classList.toggle("show");
+});
 // Headshot image slideshow logic
 const headshotList = [
   "img1.webp", "img8.webp", "img3.webp", "img4.webp", "img5.webp",

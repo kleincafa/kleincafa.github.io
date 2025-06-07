@@ -1,3 +1,12 @@
+/* Hamburger menu styles */
+.hamburger {
+  display: none;
+  font-size: 26px;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+}
 
 /* Typewriter effect */
 .typewriter {
@@ -567,60 +576,97 @@ nav .right a span {
 }
 
 @media (max-width: 740px) {
-    /* SECTION 1: Hero */
-    .hero-section {
-        flex-direction: column-reverse;
-    }
+  /* Hamburger Menu */
+  .hamburger {
+    display: block;
+  }
 
-    .hero-section .headshot img{
-        width: 300px;
-    }
+  nav .right {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: var(--background-color);
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 10px 20px;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    /* Moved from 600px media query */
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    /* About section stacks vertically with headshot on top */
-    .about-section {
-      flex-direction: column-reverse;
-      text-align: center;
-    }
-    .about-section .headshot {
-      justify-content: center;
-      margin-bottom: 30px;
-    }
+  nav .right.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
 
-    /* SECTION 3: Projects */
-    /* .projects-section {
-        text-align: center
-    }
+  nav .right a {
+    margin: 10px 0;
+    font-size: 18px;
+    /* Moved from 600px media query */
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding-bottom: 4px;
+  }
 
-    .projects-section .group {
-        flex-direction: column;    
-    } */
-    
-    /* SECTION 4: Contact */
-    .projects-section .group {
-        flex-direction: column;
-    }
+  nav .right a:last-child {
+    color: var(--text-color);
+    background-color: transparent;
+    padding: 0;
+  }
+
+  nav .right a span {
+    display: none;
+  }
+  
+  /* SECTION 1: Hero */
+  .hero-section {
+    flex-direction: column-reverse;
+  }
+
+  .hero-section .headshot img{
+    width: 300px;
+  }
+
+  /* About section stacks vertically with headshot on top */
+  .about-section {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+  .about-section .headshot {
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
+  /* SECTION 3: Projects */
+  /* .projects-section {
+      text-align: center
+  }
+
+  .projects-section .group {
+      flex-direction: column;    
+  } */
+  
+  /* SECTION 4: Contact */
+  .projects-section .group {
+    flex-direction: column;
+  }
 }
 
 /* when width is 600px or less */
 @media (max-width: 600px) {
-    /* NAVBAR */
+    NAVBAR
     nav {
         padding: 0 20px;
     }
 
-    nav .right a {
-        font-size: 22px;
-    }
-
-    nav .right a:last-child {
-        color: var(--text-color);
-        background-color: transparent;
-        padding: 0;
-    }
-
-    nav .right a span {
-        display: none;
-    }
+    /* nav .right, nav .right a, nav .right a:last-child, nav .right a span moved to 740px media query */
 
     /* SECTION 1: Hero */
     .hero-section {
