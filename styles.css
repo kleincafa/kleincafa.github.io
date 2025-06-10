@@ -752,3 +752,8 @@ header.hero-header {
   z-index: 9999;
   position: relative;
 }
+/* Indent bullet points in About section */
+.about-section .text ul {
+  padding-left: 15px;
+  list-style-position: inside;
+}
