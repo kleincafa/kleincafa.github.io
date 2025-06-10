@@ -757,3 +757,13 @@ header.hero-header {
   padding-left: 15px;
   list-style-position: inside;
 }
+/* Project video embed styles */
+.project-video {
+  margin-top: 15px;
+  width: 100%;
+}
+
+.project-video iframe {
+  border-radius: 8px;
+  padding-bottom: 20px;
+}
