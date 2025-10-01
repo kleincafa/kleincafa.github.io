@@ -9,7 +9,7 @@ hamburger.addEventListener("click", () => {
 const headshotList = [
   "img1.webp", "img8.webp", "img3.webp", "img4.webp", "img5.webp",
   "img7.webp", "img9.webp", "img10.webp", "img11.webp", "img12.webp",
-  "img13.webp", "img14.webp", "img15.webp", "img16.webp", "img17.webp"
+  "img13.webp", "img14.webp", "img15.webp", "img16.webp", "img17.webp", "img18.webp"
 ];
 let headshotElement = document.getElementById("headshot");
 let headshotIndex = 0;
