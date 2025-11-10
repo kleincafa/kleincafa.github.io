@@ -313,6 +313,28 @@ nav .right a span {
   gap: 30px;
 }
 
+.project-sort {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 25px;
+}
+
+.project-sort label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.project-sort select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.15);
+  background-color: #fff;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
 @media (max-width: 900px) {
   .project-cells {
     grid-template-columns: repeat(2, minmax(0, 1fr));

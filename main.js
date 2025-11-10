@@ -62,6 +62,36 @@ faders.forEach(section => {
   appearOnScroll.observe(section);
 });
 
+// Project sorting controls (projects page only)
+const projectSortSelect = document.getElementById('project-sort-select');
+if (projectSortSelect) {
+  const projectContainer = document.querySelector('.project-cells');
+  const originalCards = Array.from(projectContainer.querySelectorAll('.project-cell'));
+
+  const getTitle = (card) =>
+    (card.dataset.sortTitle || card.querySelector('h3')?.textContent || '').toLowerCase();
+  const getDate = (card) => card.dataset.sortDate || '0000-00';
+
+  const comparators = {
+    newest: (a, b) =>
+      getDate(b).localeCompare(getDate(a)) || getTitle(a).localeCompare(getTitle(b)),
+    oldest: (a, b) =>
+      getDate(a).localeCompare(getDate(b)) || getTitle(a).localeCompare(getTitle(b)),
+    az: (a, b) => getTitle(a).localeCompare(getTitle(b)),
+    za: (a, b) => getTitle(b).localeCompare(getTitle(a)),
+  };
+
+  const applyProjectSort = () => {
+    const mode = projectSortSelect.value;
+    const comparator = comparators[mode] || comparators.newest;
+    const sortedCards = [...originalCards].sort(comparator);
+    sortedCards.forEach(card => projectContainer.appendChild(card));
+  };
+
+  projectSortSelect.addEventListener('change', applyProjectSort);
+  applyProjectSort();
+}
+
 // Slideshow helpers (used on project cards and modal clones)
 const slideshowCleanups = new WeakMap();
 
