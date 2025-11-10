@@ -151,7 +151,7 @@ nav .right a span {
 }
 
 .hero-intro-section p {
-  color:
+  color: white;
 }
 
 .hero-intro-section .scroll-down {
@@ -308,34 +308,27 @@ nav .right a span {
   }
   
   .project-cells {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 30px;
   }
   
   .project-cell {
-    /* background-color: #000; /* dark card background */
-    /* border: 2px solid #2c97df;  */
     border: 2px solid #357944;
     border-radius: 10px;
     padding: 20px;
-    flex: 1 1 calc(33.33% - 30px);
-    max-width: 100%;
-    min-width: 280px;
-    /* box-shadow: 0 0 20px #ff6600; */
     display: flex;
     flex-direction: column;
     align-items: center;
     transition: transform 0.2s ease;
     cursor: pointer;
   }
-  
+
 .project-cell:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 0 2px rgba(53, 121, 68, 0.5), 0 8px 20px rgba(0, 0, 0, 0.08);
-    border-color: #2a6134;
-  }
+  transform: translateY(-5px);
+  box-shadow: 0 0 0 2px rgba(53, 121, 68, 0.5), 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-color: #2a6134;
+}
   
   .project-cell img {
     width: 100%;
