@@ -135,7 +135,7 @@ if (projectModal) {
     const metaText = card.dataset.modalMeta || card.querySelector('h4')?.textContent || '';
     modalMeta.textContent = metaText;
     modalMeta.style.display = metaText ? 'block' : 'none';
-    modalDescription.textContent = card.dataset.modalDescription || 'More information coming soon.';
+    modalDescription.textContent = card.dataset.modalDescription || card.querySelector('p')?.textContent.trim() || 'More information coming soon.';
 
     teardownSlideshows(modalMedia);
     modalMedia.innerHTML = "";
