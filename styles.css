@@ -364,13 +364,15 @@ nav .right a span {
   border-color: #2a6134;
 }
   
-  .project-cell img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-bottom: 15px;
-  }
+.project-card__image {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  display: block;
+  padding: 0;
+}
   
   .project-cell h3 {
     font-size: 18px;
