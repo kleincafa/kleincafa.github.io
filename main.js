@@ -1,3 +1,61 @@
+const PROJECT_DATA = Array.isArray(window.PROJECT_DATA) ? window.PROJECT_DATA : [];
+const projectDataMap = PROJECT_DATA.reduce((acc, project) => {
+  if (project?.id) acc[project.id] = project;
+  return acc;
+}, {});
+
+const buildSkillDirectory = () => {
+  const directory = new Map();
+  PROJECT_DATA.forEach(project => {
+    const skills = project.skills || [];
+    skills.forEach(skill => {
+      if (!directory.has(skill)) {
+        directory.set(skill, { name: skill, projects: [] });
+      }
+      const entry = directory.get(skill);
+      if (!entry.projects.some(p => p.id === project.id)) {
+        entry.projects.push({ id: project.id, name: project.name || project.id });
+      }
+    });
+  });
+  return Array.from(directory.values()).sort((a, b) => a.name.localeCompare(b.name));
+};
+
+const skillDirectory = buildSkillDirectory();
+
+const createSkillTagsElement = (skills = [], labelText = '') => {
+  if (!skills.length) return null;
+  const wrapper = document.createElement('div');
+  wrapper.className = 'project-tags';
+  if (labelText) wrapper.setAttribute('aria-label', labelText);
+  skills.forEach(skill => {
+    const tag = document.createElement('span');
+    tag.className = 'project-tag';
+    tag.textContent = skill;
+    wrapper.appendChild(tag);
+  });
+  return wrapper;
+};
+
+const applySkillsToProjectCards = () => {
+  document.querySelectorAll('.project-cells .project-cell').forEach(card => {
+    if (card.querySelector('.project-tags')) return;
+    const projectId = card.dataset.projectId;
+    const projectInfo = projectDataMap[projectId];
+    const skills = projectInfo?.skills || [];
+    if (!skills.length) return;
+    const labelText = `Skills used on ${projectInfo?.name || card.dataset.modalTitle || card.querySelector('h3')?.textContent || 'this project'}`;
+    const tagsElement = createSkillTagsElement(skills, labelText);
+    if (!tagsElement) return;
+    const insertAfter = card.querySelector('h4') || card.querySelector('h3');
+    if (insertAfter) {
+      insertAfter.insertAdjacentElement('afterend', tagsElement);
+    } else {
+      card.prepend(tagsElement);
+    }
+  });
+};
+
 // Hamburger menu toggle
 const hamburger = document.getElementById("hamburger-toggle");
 const navRight = document.querySelector("nav .right");
@@ -177,6 +235,7 @@ const teardownSlideshows = (root) => {
 };
 
 initSlideshows();
+applySkillsToProjectCards();
 
 // Project detail modal
 const projectModal = document.getElementById('project-modal');
@@ -185,6 +244,8 @@ if (projectModal) {
   const modalMeta = projectModal.querySelector('.project-modal__meta');
   const modalDescription = projectModal.querySelector('.project-modal__description');
   const modalMedia = projectModal.querySelector('.project-modal__media');
+  const modalTagsSection = projectModal.querySelector('.project-modal__tags');
+  const modalTagsList = projectModal.querySelector('.project-modal__tags-list');
   const modalLinks = projectModal.querySelector('.project-modal__links');
   const modalCloseBtn = projectModal.querySelector('.project-modal__close');
   const projectCards = document.querySelectorAll('.project-cells .project-cell');
@@ -200,9 +261,16 @@ if (projectModal) {
 
     teardownSlideshows(modalMedia);
     modalMedia.innerHTML = "";
+    if (modalTagsList) {
+      modalTagsList.innerHTML = "";
+    }
+    if (modalTagsSection) {
+      modalTagsSection.style.display = 'none';
+    }
     modalLinks.innerHTML = "";
 
     const slideshow = card.querySelector('.slideshow');
+    const cardTags = card.querySelector('.project-tags');
     const modalSlides = (card.dataset.modalSlides || '')
       .split('|')
       .map(src => src.trim())
@@ -216,6 +284,14 @@ if (projectModal) {
     } else if (slideshow) {
       const slideshowClone = slideshow.cloneNode(true);
       modalMedia.appendChild(slideshowClone);
+    }
+
+    if (cardTags && modalTagsList && modalTagsSection) {
+      const tagsClone = cardTags.cloneNode(true);
+      tagsClone.removeAttribute('aria-label');
+      modalTagsList.innerHTML = '';
+      modalTagsList.appendChild(tagsClone);
+      modalTagsSection.style.display = 'block';
     }
 
     const videoSrc = card.dataset.modalVideoSrc;
@@ -255,6 +331,12 @@ if (projectModal) {
   const closeProjectModal = () => {
     teardownSlideshows(modalMedia);
     modalMedia.innerHTML = "";
+    if (modalTagsList) {
+      modalTagsList.innerHTML = "";
+    }
+    if (modalTagsSection) {
+      modalTagsSection.style.display = 'none';
+    }
     modalLinks.innerHTML = "";
     projectModal.classList.remove('is-open');
     projectModal.setAttribute('aria-hidden', 'true');
@@ -288,6 +370,72 @@ if (projectModal) {
     }
   });
 }
+
+const initSkillsPage = () => {
+  const skillsPageRoot = document.getElementById('skills-page');
+  if (!skillsPageRoot) return;
+
+  const searchInput = document.getElementById('skill-search');
+  const projectFilter = document.getElementById('skill-project-filter');
+  const skillsGrid = document.getElementById('skills-grid');
+  if (!skillsGrid) return;
+
+  const renderSkillCards = (skills) => {
+    skillsGrid.innerHTML = '';
+    if (!skills.length) {
+      const emptyMsg = document.createElement('p');
+      emptyMsg.className = 'skills-empty';
+      emptyMsg.textContent = 'No skills match your filters yet.';
+      skillsGrid.appendChild(emptyMsg);
+      return;
+    }
+    skills.forEach(skill => {
+      const card = document.createElement('div');
+      card.className = 'skill-card';
+      const projectCount = skill.projects.length;
+      const projectLabel = projectCount === 1 ? 'project' : 'projects';
+      card.innerHTML = `
+        <h3>${skill.name}</h3>
+        <p>${projectCount} ${projectLabel}</p>
+      `;
+      const projectList = document.createElement('div');
+      projectList.className = 'skill-card__projects';
+      skill.projects.forEach(project => {
+        const badge = document.createElement('span');
+        badge.textContent = project.name;
+        projectList.appendChild(badge);
+      });
+      card.appendChild(projectList);
+      skillsGrid.appendChild(card);
+    });
+  };
+
+  if (projectFilter) {
+    PROJECT_DATA.forEach(project => {
+      const option = document.createElement('option');
+      option.value = project.id;
+      option.textContent = project.name;
+      projectFilter.appendChild(option);
+    });
+  }
+
+  const applySkillFilters = () => {
+    const term = (searchInput?.value || '').toLowerCase().trim();
+    const projectId = projectFilter?.value || 'all';
+    const filtered = skillDirectory.filter(skill => {
+      const matchesSearch = skill.name.toLowerCase().includes(term);
+      const matchesProject = projectId === 'all' || skill.projects.some(p => p.id === projectId);
+      return matchesSearch && matchesProject;
+    });
+    renderSkillCards(filtered);
+  };
+
+  searchInput?.addEventListener('input', applySkillFilters);
+  projectFilter?.addEventListener('change', applySkillFilters);
+  renderSkillCards(skillDirectory);
+};
+
+initSkillsPage();
 
 // Typewriter animation
 const sentence = "Hello, World! I'm Klein ";

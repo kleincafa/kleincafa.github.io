@@ -36,7 +36,7 @@
             <a href="/">Home</a>
             <a href="/#about">About</a>
             <a href="/projects/">Projects</a>
-            <a href="/#skills">Skills</a>
+            <a href="/skills/">Skills</a>
             <a href="/#contact">Contact</a>
         </div>
       </nav>
@@ -66,7 +66,7 @@
             </div>
             <div class="project-cells">
               <!-- Project 1: SUSTAIN -->
-                <div class="project-cell" tabindex="0"
+                <div class="project-cell" tabindex="0" data-project-id="sustain"
                      data-modal-title="SUSTAIN &mdash; The Environmentally-Friendly AI"
                      data-modal-meta="February 2025 — Present"
                      data-modal-description="SUSTAIN is an environmentally-friendly, token-optimized AI wrapper designed to reduce compute costs and increase productivity. By filtering out 
@@ -93,7 +93,7 @@
                     <a href="https://github.com/djleamen/SUSTAIN" class="project-btn" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
                   </div>
                 <!-- Project 2: travelGo -->
-                <div class="project-cell" tabindex="0"
+                <div class="project-cell" tabindex="0" data-project-id="travelgo"
                      data-modal-title="travelGo &mdash; Travel Package Management"
                      data-modal-meta="January 2025 — April 2025"
                      data-modal-description="travelGo is a Travel Package Management System designed to help administrators organize, track, and modify travel packages efficiently. The 
@@ -116,7 +116,7 @@
                     <a href="https://github.com/mila-launen-otu/travelGo" class="project-btn" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
                 </div>
                 <!-- Project 3: LockIn -->
-                <div class="project-cell" tabindex="0"
+                <div class="project-cell" tabindex="0" data-project-id="lockin"
                      data-modal-title="LockIn &mdash; Studying Manageable, Collaborative and Productive"
                      data-modal-meta="January 2025 — April 2025"
                      data-modal-description="LockIn is a comprehensive platform designed to streamline the management of travel packages, ensuring that all aspects of the offerings are easily accessible and modifiable."
@@ -137,7 +137,7 @@
                     <a href="https://github.com/kleincafa/LockIn" class="project-btn" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
                 </div>
                 <!-- Project 4: CSCI 2000U -->
-                <div class="project-cell" tabindex="0"
+                <div class="project-cell" tabindex="0" data-project-id="aircraft-analysis"
                      data-modal-title="Analysis of Aircraft Fatalities in the World (1908-2019)"
                      data-modal-meta="September 2024 &mdash; November 2024"
                      data-modal-description="A data science problem explored, Aircraft Fatalities in the World (1908-2019), where key aspects of the data science workflow is 
@@ -162,7 +162,7 @@
                     <a href="https://github.com/cafakleinn/Aircraft-Fatalities-in-the-World-1908-2019" class="project-btn" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
                 </div>
                 <!-- Project 5: Lester -->
-                <div class="project-cell" tabindex="0" data-modal-title="Lester - Social Kindness Application"
+                <div class="project-cell" tabindex="0" data-project-id="lester" data-modal-title="Lester - Social Kindness Application"
                   data-modal-meta="September 2025 &mdash; December 2025"
                   data-modal-description="Lester is a Flutter/Dart mobile application designed to encourage positive wellbeing through daily 
                   acts of kindness. When users open the app, they receive a randomized kindness challenge that they can complete or swap. The app 
@@ -186,7 +186,7 @@
                     GitHub</a>
                 </div>
                 <!-- Project 6: Rocket Type Tester -->
-                <div class="project-cell" tabindex="0" data-modal-title="Rocket Type Tester - Keyboard Typing Practice"
+                <div class="project-cell" tabindex="0" data-project-id="rocket-type-tester" data-modal-title="Rocket Type Tester - Keyboard Typing Practice"
                   data-modal-meta="September 2021 &mdash; October 2021" data-modal-description="This project is a typing practice and speed challenge game 
                   developed in Python using the Pygame library. The game presents users with words to type accurately under time pressure, helping improve typing 
                   speed, focus, and reaction time. It includes a main menu, multiple tutorial screens that teach the user how to play, and a smooth transition into 
@@ -214,7 +214,7 @@
                     GitHub</a>
                 </div>
                 <!-- Project 7: Rocketship -->
-                <div class="project-cell" tabindex="0" data-modal-title="Battleship - Java Game"
+                <div class="project-cell" tabindex="0" data-project-id="battleship" data-modal-title="Battleship - Java Game"
                   data-modal-meta="May 2023 &mdash; June 2023"
                   data-modal-description="This project is a Java-based implementation of the classic Battleship strategy game, where the player 
                   competes against the computer on a shared ocean grid. Ships are placed on both the player's and computer’s boards, either randomly 
@@ -252,7 +252,7 @@
                     GitHub</a>
                 </div>
                 <!-- Project 8: Iris Classification with MLP -->
-                <div class="project-cell" tabindex="0" data-modal-title="Iris Classification with MLP - Machine Learning Training & Visualization"
+                <div class="project-cell" tabindex="0" data-project-id="iris-mlp" data-modal-title="Iris Classification with MLP - Machine Learning Training & Visualization"
                   data-modal-meta="October 2025"
                   data-modal-description="This assignment focuses on applying supervised learning methods to the well-known Iris dataset using neural 
                   networks implemented in PyTorch. The task progresses through building and analyzing three model variations: a simple linear classifier, 
@@ -301,6 +301,10 @@
           </header>
           <p class="project-modal__description"></p>
           <div class="project-modal__media"></div>
+          <div class="project-modal__tags" aria-label="Skills used in this project" style="display:none;">
+            <span class="project-modal__tags-label">Skills</span>
+            <div class="project-modal__tags-list"></div>
+          </div>
           <div class="project-modal__links"></div>
         </div>
       </div>
@@ -309,6 +313,7 @@
     <footer class="footer">
       <p>&copy; 2025 Klein Cafa. All rights reserved.</p>
     </footer>
+    <script src="../projectData.js"></script>
     <script src="../main.js"></script>
 </body>
 </html>
