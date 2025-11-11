@@ -95,6 +95,37 @@ if (projectSortSelect) {
 // Slideshow helpers (used on project cards and modal clones)
 const slideshowCleanups = new WeakMap();
 
+const createSlideshowElement = (images = [], altPrefix = 'Project image') => {
+  if (!images.length) return null;
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'slideshow';
+
+  images.forEach((src, index) => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = `${altPrefix} ${index + 1}`;
+    img.className = 'slide';
+    if (index === 0) img.classList.add('active');
+    wrapper.appendChild(img);
+  });
+
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'prev';
+  prevBtn.innerHTML = '&#10094;';
+  prevBtn.setAttribute('aria-label', 'Previous slide');
+
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'next';
+  nextBtn.innerHTML = '&#10095;';
+  nextBtn.setAttribute('aria-label', 'Next slide');
+
+  wrapper.appendChild(prevBtn);
+  wrapper.appendChild(nextBtn);
+
+  return wrapper;
+};
+
 const setupSlideshow = (slideshow) => {
   if (slideshowCleanups.has(slideshow)) return;
   const slides = slideshow.querySelectorAll('.slide');
@@ -172,7 +203,17 @@ if (projectModal) {
     modalLinks.innerHTML = "";
 
     const slideshow = card.querySelector('.slideshow');
-    if (slideshow) {
+    const modalSlides = (card.dataset.modalSlides || '')
+      .split('|')
+      .map(src => src.trim())
+      .filter(Boolean);
+
+    if (modalSlides.length) {
+      const modalSlideshow = createSlideshowElement(modalSlides, `${modalTitle.textContent} modal image`);
+      if (modalSlideshow) {
+        modalMedia.appendChild(modalSlideshow);
+      }
+    } else if (slideshow) {
       const slideshowClone = slideshow.cloneNode(true);
       modalMedia.appendChild(slideshowClone);
     }
