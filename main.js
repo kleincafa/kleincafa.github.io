@@ -416,13 +416,26 @@ const initSkillsPage = () => {
   const skillsGrid = document.getElementById('skills-grid');
   if (!skillsGrid) return;
 
+  let sectionsRevealed = false;
+  const revealSections = () => {
+    if (sectionsRevealed) return;
+    sectionsRevealed = true;
+    requestAnimationFrame(() => {
+      skillsPageRoot.querySelectorAll('.fade-in-section').forEach(section => {
+        section.classList.add('visible');
+      });
+    });
+  };
+
   const renderSkillCards = (skills) => {
-    skillsGrid.innerHTML = '';
+    const fragment = document.createDocumentFragment();
     if (!skills.length) {
       const emptyMsg = document.createElement('p');
       emptyMsg.className = 'skills-empty';
       emptyMsg.textContent = 'No skills match your filters yet.';
-      skillsGrid.appendChild(emptyMsg);
+      fragment.appendChild(emptyMsg);
+      skillsGrid.innerHTML = '';
+      skillsGrid.appendChild(fragment);
       return;
     }
     skills.forEach(skill => {
@@ -448,8 +461,10 @@ const initSkillsPage = () => {
         projectList.appendChild(badge);
       });
       card.appendChild(projectList);
-      skillsGrid.appendChild(card);
+      fragment.appendChild(card);
     });
+    skillsGrid.innerHTML = '';
+    skillsGrid.appendChild(fragment);
   };
 
   if (projectFilter) {
@@ -475,6 +490,7 @@ const initSkillsPage = () => {
   searchInput?.addEventListener('input', applySkillFilters);
   projectFilter?.addEventListener('change', applySkillFilters);
   renderSkillCards(skillDirectory);
+  revealSections();
 };
 
 initSkillsPage();

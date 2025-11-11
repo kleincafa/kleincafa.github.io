@@ -485,7 +485,14 @@ nav .right a span {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+}
+
+.fade-in-section.visible .skill-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .skill-card h3 {
@@ -530,6 +537,7 @@ nav .right a span {
   box-shadow: 0 0 0 2px rgba(53, 121, 68, 0.5), 0 8px 20px rgba(0, 0, 0, 0.08);
   border-color: #2a6134;
 }
+
 
 .skills-empty {
   grid-column: 1 / -1;
