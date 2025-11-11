@@ -416,10 +416,7 @@ const initSkillsPage = () => {
   const skillsGrid = document.getElementById('skills-grid');
   if (!skillsGrid) return;
 
-  let sectionsRevealed = false;
   const revealSections = () => {
-    if (sectionsRevealed) return;
-    sectionsRevealed = true;
     requestAnimationFrame(() => {
       skillsPageRoot.querySelectorAll('.fade-in-section').forEach(section => {
         section.classList.add('visible');
@@ -428,14 +425,12 @@ const initSkillsPage = () => {
   };
 
   const renderSkillCards = (skills) => {
-    const fragment = document.createDocumentFragment();
+    skillsGrid.innerHTML = '';
     if (!skills.length) {
       const emptyMsg = document.createElement('p');
       emptyMsg.className = 'skills-empty';
       emptyMsg.textContent = 'No skills match your filters yet.';
-      fragment.appendChild(emptyMsg);
-      skillsGrid.innerHTML = '';
-      skillsGrid.appendChild(fragment);
+      skillsGrid.appendChild(emptyMsg);
       return;
     }
     skills.forEach(skill => {
@@ -461,10 +456,8 @@ const initSkillsPage = () => {
         projectList.appendChild(badge);
       });
       card.appendChild(projectList);
-      fragment.appendChild(card);
+      skillsGrid.appendChild(card);
     });
-    skillsGrid.innerHTML = '';
-    skillsGrid.appendChild(fragment);
   };
 
   if (projectFilter) {
