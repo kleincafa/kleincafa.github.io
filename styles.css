@@ -399,6 +399,11 @@ nav .right a span {
   background-color: rgba(53, 121, 68, 0.1);
   color: #2a6134;
 }
+
+.project-tag--more {
+  background-color: rgba(53, 121, 68, 0.18);
+  color: #1f4728;
+}
   
   .project-cell p {
     font-size: 14px;
@@ -500,18 +505,30 @@ nav .right a span {
   gap: 6px;
 }
 
-.skill-card__projects span {
+.skill-card__project-btn {
   padding: 4px 10px;
   border-radius: 999px;
   background-color: rgba(53, 121, 68, 0.12);
   font-size: 12px;
   font-weight: 600;
   color: #2a6134;
+  border: none;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.skill-card__project-btn:hover,
+.skill-card__project-btn:focus-visible {
+  background-color: rgba(42, 97, 52, 0.8);
+  color: #fff;
+  outline: none;
 }
 
 .skill-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transform: translateY(-5px);
+  box-shadow: 0 0 0 2px rgba(53, 121, 68, 0.5), 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-color: #2a6134;
 }
 
 .skills-empty {

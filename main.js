@@ -23,17 +23,25 @@ const buildSkillDirectory = () => {
 
 const skillDirectory = buildSkillDirectory();
 
-const createSkillTagsElement = (skills = [], labelText = '') => {
+const createSkillTagsElement = (skills = [], labelText = '', options = {}) => {
   if (!skills.length) return null;
   const wrapper = document.createElement('div');
   wrapper.className = 'project-tags';
   if (labelText) wrapper.setAttribute('aria-label', labelText);
-  skills.forEach(skill => {
+  const maxVisible = typeof options.maxVisible === 'number' ? options.maxVisible : null;
+  const visibleSkills = maxVisible ? skills.slice(0, maxVisible) : skills;
+  visibleSkills.forEach(skill => {
     const tag = document.createElement('span');
     tag.className = 'project-tag';
     tag.textContent = skill;
     wrapper.appendChild(tag);
   });
+  if (maxVisible && skills.length > maxVisible) {
+    const remainder = document.createElement('span');
+    remainder.className = 'project-tag project-tag--more';
+    remainder.textContent = `+${skills.length - maxVisible}`;
+    wrapper.appendChild(remainder);
+  }
   return wrapper;
 };
 
@@ -45,7 +53,7 @@ const applySkillsToProjectCards = () => {
     const skills = projectInfo?.skills || [];
     if (!skills.length) return;
     const labelText = `Skills used on ${projectInfo?.name || card.dataset.modalTitle || card.querySelector('h3')?.textContent || 'this project'}`;
-    const tagsElement = createSkillTagsElement(skills, labelText);
+    const tagsElement = createSkillTagsElement(skills, labelText, { maxVisible: 5 });
     if (!tagsElement) return;
     const insertAfter = card.querySelector('h4') || card.querySelector('h3');
     if (insertAfter) {
@@ -270,7 +278,9 @@ if (projectModal) {
     modalLinks.innerHTML = "";
 
     const slideshow = card.querySelector('.slideshow');
-    const cardTags = card.querySelector('.project-tags');
+    const projectId = card.dataset.projectId;
+    const projectInfo = projectDataMap[projectId];
+    const projectSkills = projectInfo?.skills || [];
     const modalSlides = (card.dataset.modalSlides || '')
       .split('|')
       .map(src => src.trim())
@@ -286,12 +296,13 @@ if (projectModal) {
       modalMedia.appendChild(slideshowClone);
     }
 
-    if (cardTags && modalTagsList && modalTagsSection) {
-      const tagsClone = cardTags.cloneNode(true);
-      tagsClone.removeAttribute('aria-label');
-      modalTagsList.innerHTML = '';
-      modalTagsList.appendChild(tagsClone);
-      modalTagsSection.style.display = 'block';
+    if (projectSkills.length && modalTagsList && modalTagsSection) {
+      const modalTagsElement = createSkillTagsElement(projectSkills);
+      if (modalTagsElement) {
+        modalTagsList.innerHTML = '';
+        modalTagsList.appendChild(modalTagsElement);
+        modalTagsSection.style.display = 'block';
+      }
     }
 
     const videoSrc = card.dataset.modalVideoSrc;
@@ -326,6 +337,14 @@ if (projectModal) {
     projectModal.classList.add('is-open');
     projectModal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
+  };
+
+  const openProjectById = (projectId) => {
+    if (!projectId) return;
+    const targetCard = Array.from(projectCards).find(card => card.dataset.projectId === projectId);
+    if (targetCard) {
+      openProjectModal(targetCard);
+    }
   };
 
   const closeProjectModal = () => {
@@ -369,6 +388,23 @@ if (projectModal) {
       closeProjectModal();
     }
   });
+
+  const handleProjectDeepLink = () => {
+    if (!window.URLSearchParams) return;
+    const params = new URLSearchParams(window.location.search);
+    const targetId = params.get('project');
+    if (targetId) {
+      openProjectById(targetId);
+      if (history.replaceState) {
+        params.delete('project');
+        const queryString = params.toString();
+        const newUrl = `${window.location.pathname}${queryString ? `?${queryString}` : ''}${window.location.hash}`;
+        history.replaceState(null, '', newUrl);
+      }
+    }
+  };
+
+  handleProjectDeepLink();
 }
 
 const initSkillsPage = () => {
@@ -401,8 +437,14 @@ const initSkillsPage = () => {
       const projectList = document.createElement('div');
       projectList.className = 'skill-card__projects';
       skill.projects.forEach(project => {
-        const badge = document.createElement('span');
+        const badge = document.createElement('button');
+        badge.type = 'button';
+        badge.className = 'skill-card__project-btn';
+        badge.dataset.projectId = project.id;
         badge.textContent = project.name;
+        badge.addEventListener('click', () => {
+          window.location.href = `/projects/?project=${encodeURIComponent(project.id)}`;
+        });
         projectList.appendChild(badge);
       });
       card.appendChild(projectList);
