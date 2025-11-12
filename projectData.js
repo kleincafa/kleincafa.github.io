@@ -3,6 +3,7 @@ window.PROJECT_DATA = [
     id: "sustain",
     name: "SUSTAIN",
     skills: [
+      "Hackathon",
       "Python",
       "API Integration",
       "Natural Language Processing (NLP)",
@@ -23,6 +24,7 @@ window.PROJECT_DATA = [
     id: "travelgo",
     name: "travelGo",
     skills: [
+      "Software Design & Analysis",
       "Java",
       "JavaFX",
       "GUI Development",
@@ -49,6 +51,7 @@ window.PROJECT_DATA = [
     id: "lockin",
     name: "LockIn",
     skills: [
+      "Software Systems, Development & Integration",
       "Java",
       "JavaFX",
       "GUI Development",
@@ -69,6 +72,7 @@ window.PROJECT_DATA = [
     id: "aircraft-analysis",
     name: "Analysis of Aircraft Fatalities",
     skills: [
+      "Data Analysis",
       "Python",
       "Pandas",
       "Seaborn",
@@ -89,6 +93,7 @@ window.PROJECT_DATA = [
     id: "lester",
     name: "Lester",
     skills: [
+      "Mobile App Development",
       "Flutter",
       "Dart",
       "GUI Development",
@@ -147,6 +152,7 @@ window.PROJECT_DATA = [
     id: "iris-mlp",
     name: "Iris Classification with MLP",
     skills: [
+      "Machine Learning",
       "Python",
       "PyTorch",
       "Torchmetrics",
@@ -166,5 +172,44 @@ window.PROJECT_DATA = [
       "Dataloaders & Batching",
       "Version Control: Git & GitHub"
     ],
-  }
+  },
+  {
+    id: "grade-entry-flutter-app",
+    name: "Grade Entry Flutter App",
+    skills: [
+      "Mobile App Development",
+      "Flutter",
+      "Dart",
+      "SQLite (Local Storage)",
+      "Local Data Persistence",
+      "Asynchronous Programming",
+      "State Management",
+      "Model-View Separation",
+      "CRUD Operations",
+      "Database Initialization & Querying",
+      "Form Handling & Validation",
+      "Widget Tree Composition",
+      "Navigation & Screen Flow",
+      "Error Handling",
+      "User Input Validation",
+      "Data Modeling",
+      "Version Control: Git & GitHub"
+    ],
+  },
+  {
+    id: "functional-dependencies-bcnf",
+    name: "Functional Dependencies & BCNF",
+    skills: [
+      "Database Systems & Concepts",
+      "Python",
+      "Relational Algebra Operations",
+      "Functional Dependency Reasoning",
+      "Attribute Closure Computation",
+      "BCNF Decomposition",
+      "Schema Normalization",
+      "Data Validation & Error Checking",
+      "Modular Code Design",
+      "Version Control: Git & GitHub"
+    ],
+  },
 ];
