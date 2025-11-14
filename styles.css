@@ -963,6 +963,41 @@ li,
   .hamburger {
     display: block;
   }
+  
+  nav {
+    padding: 0 20px;
+    height: auto;
+    flex-wrap: wrap;
+    row-gap: 6px;
+    align-items: flex-start;
+  }
+
+  nav .left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: auto;
+  }
+
+  nav .left > a {
+    font-size: 20px;
+  }
+
+  .navbar-logo {
+    height: 32px;
+  }
+
+  .nav-social {
+    order: 2;
+    margin-left: 12px;
+    gap: 6px;
+    justify-content: flex-start;
+  }
+
+  .nav-social a {
+    width: 30px;
+    height: 30px;
+  }
 
   nav .right {
     position: absolute;
@@ -1008,6 +1043,15 @@ li,
     display: none;
   }
 
+  nav {
+    justify-content: space-between;
+  }
+
+  #hamburger-toggle {
+    order: 3;
+    margin-left: auto;
+    align-self: center;
+  }
   
   /* SECTION 1: Hero */
   .hero-section {
