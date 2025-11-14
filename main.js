@@ -45,6 +45,97 @@ const createSkillTagsElement = (skills = [], labelText = '', options = {}) => {
   return wrapper;
 };
 
+const projectTagContainers = new Set();
+
+const enforceProjectTagRows = (container, maxRows = 2) => {
+  if (!container) return;
+  container.querySelectorAll('.project-tag--more').forEach(el => el.remove());
+  const tags = Array.from(container.querySelectorAll('.project-tag'));
+  tags.forEach(tag => {
+    if (!tag.classList.contains('project-tag--ghost')) {
+      tag.style.display = '';
+    }
+  });
+
+  requestAnimationFrame(() => {
+    if (!tags.length) return;
+    const getTop = (el) => Math.round(el.offsetTop);
+    const getWidth = (el) => Math.round(el.getBoundingClientRect().width);
+    const rowTops = [];
+    tags.forEach(tag => {
+      const top = getTop(tag);
+      if (!rowTops.includes(top)) rowTops.push(top);
+    });
+    if (!rowTops.length) return;
+    const allowedTop = rowTops[Math.min(maxRows - 1, rowTops.length - 1)];
+
+    let hiddenCount = 0;
+    tags.forEach(tag => {
+      if (getTop(tag) > allowedTop) {
+        tag.style.display = 'none';
+        hiddenCount++;
+      }
+    });
+
+    const indicator = document.createElement('span');
+    indicator.className = 'project-tag project-tag--more project-tag--ghost';
+    indicator.textContent = '+0';
+    container.appendChild(indicator);
+
+    const getVisibleLastRowTags = () =>
+      tags.filter(tag => tag.style.display !== 'none' && getTop(tag) === allowedTop);
+
+    const hideOneFromLastRow = () => {
+      const candidates = getVisibleLastRowTags();
+      const toHide = candidates.pop();
+      if (!toHide) return false;
+      toHide.style.display = 'none';
+      hiddenCount++;
+      return true;
+    };
+
+    while (true) {
+      indicator.textContent = `+${hiddenCount}`;
+      const indicatorWidth = getWidth(indicator) + 6;
+      const rowTags = getVisibleLastRowTags();
+      const rowWidth = rowTags.reduce(
+        (sum, tag) => sum + getWidth(tag) + 6,
+        rowTags.length ? -6 : 0
+      );
+      const totalWidth = rowWidth + indicatorWidth;
+      if (totalWidth <= container.clientWidth) break;
+      if (!hideOneFromLastRow()) break;
+    }
+
+    indicator.classList.remove('project-tag--ghost');
+    if (hiddenCount <= 0) {
+      indicator.remove();
+      return;
+    }
+    indicator.textContent = `+${hiddenCount}`;
+    indicator.setAttribute('aria-label', `${hiddenCount} more skills`);
+    indicator.title = `${hiddenCount} more skills`;
+    const lastVisible = [...tags].reverse().find(tag => tag.style.display !== 'none');
+    if (lastVisible?.parentElement === container) {
+      lastVisible.insertAdjacentElement('afterend', indicator);
+    } else {
+      indicator.remove();
+    }
+  });
+};
+
+const enforceAllProjectTagRows = () => {
+  projectTagContainers.forEach(container => enforceProjectTagRows(container));
+};
+
+(() => {
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(enforceAllProjectTagRows, 150);
+  });
+})();
+
 const applySkillsToProjectCards = () => {
   document.querySelectorAll('.project-cells .project-cell').forEach(card => {
     if (card.querySelector('.project-tags')) return;
@@ -53,7 +144,7 @@ const applySkillsToProjectCards = () => {
     const skills = projectInfo?.skills || [];
     if (!skills.length) return;
     const labelText = `Skills used on ${projectInfo?.name || card.dataset.modalTitle || card.querySelector('h3')?.textContent || 'this project'}`;
-    const tagsElement = createSkillTagsElement(skills, labelText, { maxVisible: 5 });
+    const tagsElement = createSkillTagsElement(skills, labelText);
     if (!tagsElement) return;
     const insertAfter = card.querySelector('h4') || card.querySelector('h3');
     if (insertAfter) {
@@ -61,6 +152,8 @@ const applySkillsToProjectCards = () => {
     } else {
       card.prepend(tagsElement);
     }
+    projectTagContainers.add(tagsElement);
+    enforceProjectTagRows(tagsElement);
   });
 };
 
@@ -76,41 +169,62 @@ if (hamburger && navRight) {
 // Headshot image slideshow logic
 const headshotElement = document.getElementById("headshot");
 if (headshotElement) {
+  const isStaticHeadshot = headshotElement.dataset.headshotStatic === 'true';
   let activeHeadshot = headshotElement;
   const headshotList = [
-    "img1.webp", "img8.webp", "img3.webp", "img4.webp", "img5.webp",
+    "img1.webp", "img2.webp", "img8.webp", "img3.webp", "img4.webp", "img5.webp",
     "img7.webp", "img9.webp", "img10.webp", "img11.webp", "img12.webp",
     "img13.webp", "img14.webp", "img15.webp", "img16.webp", "img17.webp", "img18.webp"
   ];
   let headshotIndex = 0;
-  function updateHeadshot() {
-    const nextIndex = (headshotIndex + 1) % headshotList.length;
-    const newImg = document.createElement("img");
-    newImg.src = "images/headshots/" + headshotList[nextIndex];
-    newImg.alt = "klein cafa headshot";
-    newImg.classList.add("headshot-img");
-    newImg.style.opacity = 0;
-    newImg.style.zIndex = "0";
-    const container = activeHeadshot.parentElement;
-    container.appendChild(newImg);
-    requestAnimationFrame(() => {
-      newImg.style.opacity = 1;
-      activeHeadshot.style.opacity = 0;
-    });
-    newImg.onload = () => {
-      setTimeout(() => {
-        container.removeChild(activeHeadshot);
-        newImg.id = "headshot";
-        newImg.classList.remove("headshot-img");
-        activeHeadshot = newImg;
-      }, 500);
-    };
-    headshotIndex = nextIndex;
+  const headshotBase = (headshotElement.dataset.headshotBase || 'images/headshots/').replace(/\/?$/, '/');
+  const buildHeadshotSrc = (filename) => `${headshotBase}${filename}`;
+  const requestedHeadshotName = headshotElement.dataset.headshotFile || headshotElement.dataset.headshotInitial || headshotList[0];
+  const initialHeadshotIndex = headshotList.indexOf(requestedHeadshotName);
+  const hasRequestedHeadshot = initialHeadshotIndex >= 0;
+  headshotIndex = hasRequestedHeadshot ? initialHeadshotIndex : 0;
+
+  const initStaticHeadshot = () => {
+    const initialName = hasRequestedHeadshot ? requestedHeadshotName : headshotList[0];
+    activeHeadshot.src = hasRequestedHeadshot
+      ? buildHeadshotSrc(initialName)
+      : requestedHeadshotName?.includes('/')
+        ? requestedHeadshotName
+        : buildHeadshotSrc(initialName);
+    activeHeadshot.alt = "klein cafa headshot";
+  };
+  if (!isStaticHeadshot) {
+    function updateHeadshot() {
+      const nextIndex = (headshotIndex + 1) % headshotList.length;
+      const newImg = document.createElement("img");
+      newImg.src = buildHeadshotSrc(headshotList[nextIndex]);
+      newImg.alt = "klein cafa headshot";
+      newImg.classList.add("headshot-img");
+      newImg.style.opacity = 0;
+      newImg.style.zIndex = "0";
+      const container = activeHeadshot.parentElement;
+      container.appendChild(newImg);
+      requestAnimationFrame(() => {
+        newImg.style.opacity = 1;
+        activeHeadshot.style.opacity = 0;
+      });
+      newImg.onload = () => {
+        setTimeout(() => {
+          container.removeChild(activeHeadshot);
+          newImg.id = "headshot";
+          newImg.classList.remove("headshot-img");
+          activeHeadshot = newImg;
+        }, 500);
+      };
+      headshotIndex = nextIndex;
+    }
+    const initialName = hasRequestedHeadshot ? requestedHeadshotName : headshotList[0];
+    activeHeadshot.src = buildHeadshotSrc(initialName);
+    activeHeadshot.alt = "klein cafa headshot";
+    setInterval(updateHeadshot, 5000);
+  } else {
+    initStaticHeadshot();
   }
-  activeHeadshot.src = "images/headshots/" + headshotList[0];
-  activeHeadshot.alt = "klein cafa headshot";
-  headshotIndex = 0;
-  setInterval(updateHeadshot, 5000);
 }
 
 // Fade-in effect
@@ -127,6 +241,19 @@ const appearOnScroll = new IntersectionObserver((entries, observer) => {
 faders.forEach(section => {
   appearOnScroll.observe(section);
 });
+
+const autoRevealContainers = ['about-page', 'projects-page'];
+const revealRoot = autoRevealContainers
+  .map(id => document.getElementById(id))
+  .find(Boolean);
+if (revealRoot) {
+  requestAnimationFrame(() => {
+    revealRoot.querySelectorAll('.fade-in-section').forEach(section => {
+      section.classList.add('visible');
+      appearOnScroll.unobserve(section);
+    });
+  });
+}
 
 // Project sorting controls (projects page only)
 const projectSortSelect = document.getElementById('project-sort-select');
@@ -413,6 +540,7 @@ const initSkillsPage = () => {
 
   const searchInput = document.getElementById('skill-search');
   const projectFilter = document.getElementById('skill-project-filter');
+  const sortSelect = document.getElementById('skill-sort');
   const skillsGrid = document.getElementById('skills-grid');
   if (!skillsGrid) return;
 
@@ -469,6 +597,18 @@ const initSkillsPage = () => {
     });
   }
 
+  const sorters = {
+    alpha: (a, b) => a.name.localeCompare(b.name),
+    'projects-desc': (a, b) =>
+      (b.projects.length - a.projects.length) || a.name.localeCompare(b.name),
+  };
+
+  const sortSkills = (skills) => {
+    const mode = sortSelect?.value || 'alpha';
+    const comparator = sorters[mode] || sorters.alpha;
+    return [...skills].sort(comparator);
+  };
+
   const applySkillFilters = () => {
     const term = (searchInput?.value || '').toLowerCase().trim();
     const projectId = projectFilter?.value || 'all';
@@ -477,12 +617,14 @@ const initSkillsPage = () => {
       const matchesProject = projectId === 'all' || skill.projects.some(p => p.id === projectId);
       return matchesSearch && matchesProject;
     });
-    renderSkillCards(filtered);
+    const sortedSkills = sortSkills(filtered);
+    renderSkillCards(sortedSkills);
   };
 
   searchInput?.addEventListener('input', applySkillFilters);
   projectFilter?.addEventListener('change', applySkillFilters);
-  renderSkillCards(skillDirectory);
+  sortSelect?.addEventListener('change', applySkillFilters);
+  renderSkillCards(sortSkills(skillDirectory));
   revealSections();
 };
 

@@ -54,7 +54,7 @@ html {
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: var(--background-color);
     max-width: 1400px;
     margin: 0 auto;
@@ -89,10 +89,22 @@ nav {
     */
 }
 
+nav .left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 nav .left a {
     color: var(--text-color);
     font-size: 22px;
     font-weight: 600;
+}
+
+nav .right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 nav .right a {
@@ -116,6 +128,59 @@ nav .right a span {
   height: 35px;
   margin-right: 5px;
   vertical-align: middle;
+}
+
+.nav-social {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 0;
+}
+
+.nav-social a {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--text-color);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-social a:hover,
+.nav-social a:focus-visible {
+  background-color: #357944;
+  color: #fff;
+  border-color: #357944;
+}
+
+.nav-social__icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+/* Global text sizing */
+body {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+p,
+li,
+.about-section .text,
+.about-section__text,
+.about-page-section,
+.skills-section .text,
+.projects-section .text,
+.contact-section .text,
+.skill-card p,
+.project-cell p {
+  font-size: 16px;
+  line-height: 1.7;
 }
 
 /* SECTION 1: Hero Intro */
@@ -222,6 +287,36 @@ nav .right a span {
   border: 2px solid var(--text-color);
 }
 
+.about-section--page {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 30px;
+  justify-content: center;
+}
+
+.about-section__media {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.about-section--page .links {
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.about-section__text {
+  max-width: 720px;
+  line-height: 1.8;
+  text-align: left;
+  font-size: 16px;
+}
+
 .about-section .headshot {
   flex: 2;
   display: flex;
@@ -230,6 +325,23 @@ nav .right a span {
   width: 350px;
   aspect-ratio: 1 / 1;
   z-index: 0;
+}
+
+.about-section--page .headshot {
+  flex: unset;
+  justify-content: center;
+  width: min(350px, 80vw);
+}
+
+@media (min-width: 900px) {
+  .about-section--page {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .about-section__text {
+    text-align: left;
+  }
 }
 
 .about-section .headshot img,
@@ -331,7 +443,7 @@ nav .right a span {
   border: 1px solid rgba(0,0,0,0.15);
   background-color: #fff;
   font-size: 14px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   cursor: pointer;
 }
 
@@ -406,6 +518,12 @@ nav .right a span {
   background-color: rgba(53, 121, 68, 0.18);
   color: #1f4728;
 }
+
+.project-tag--ghost {
+  visibility: hidden;
+  position: absolute;
+  pointer-events: none;
+}
   
   .project-cell p {
     font-size: 14px;
@@ -469,7 +587,42 @@ nav .right a span {
   border-radius: 8px;
   border: 1px solid rgba(0,0,0,0.15);
   font-size: 14px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.about-page-section {
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  line-height: 1.8;
+}
+
+.about-page-section h3 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.about-page-values__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.about-page-card {
+  border: 2px solid #357944;
+  border-radius: 12px;
+  padding: 18px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.about-page-card h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 18px;
 }
 
 .skills-grid {
@@ -516,7 +669,7 @@ nav .right a span {
   color: #2a6134;
   border: none;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -761,7 +914,7 @@ nav .right a span {
 
 .contact-section .group form input,
 .contact-section .group form textarea {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     border: 2px solid var(--link-color);
     background-color: transparent;
     padding: 10px;
@@ -773,7 +926,7 @@ nav .right a span {
 
 .contact-section .group form button {
     font-size: 16px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     color: #fff;
     background-color: var(--link-color);
     border: none;
@@ -854,6 +1007,7 @@ nav .right a span {
   nav .right a span {
     display: none;
   }
+
   
   /* SECTION 1: Hero */
   .hero-section {
@@ -872,6 +1026,17 @@ nav .right a span {
   .about-section .headshot {
     justify-content: center;
     margin-bottom: 30px;
+  }
+
+  .about-section--page {
+    flex-direction: column;
+    text-align: center;
+    gap: 1px;
+  }
+
+  .about-section--page .about-section__media {
+    order: -1;
+    margin-bottom: 10px;
   }
 
   /* SECTION 3: Projects */
@@ -939,10 +1104,15 @@ nav .right a span {
 /* Footer styles */
 .footer {
   text-align: center;
-  font-size: 12px;
   color: #888;
-  padding: 20px 0;
+  padding: 18px 0;
   background-color: transparent;
+}
+
+.footer p {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
 }
 /* Keep Navbar on Page */
 .hero-header {
