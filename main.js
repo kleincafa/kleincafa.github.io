@@ -23,6 +23,12 @@ const buildSkillDirectory = () => {
 
 const skillDirectory = buildSkillDirectory();
 
+const HEADSHOT_IMAGES = [
+  "img1.webp", "img2.webp", "img8.webp", "img3.webp", "img4.webp", "img5.webp",
+  "img7.webp", "img9.webp", "img10.webp", "img11.webp", "img12.webp",
+  "img13.webp", "img14.webp", "img15.webp", "img16.webp", "img17.webp", "img18.webp"
+];
+
 const createSkillTagsElement = (skills = [], labelText = '', options = {}) => {
   if (!skills.length) return null;
   const wrapper = document.createElement('div');
@@ -166,38 +172,43 @@ if (hamburger && navRight) {
     navRight.classList.toggle("show");
   });
 }
-// Headshot image slideshow logic
-const headshotElement = document.getElementById("headshot");
-if (headshotElement) {
-  const isStaticHeadshot = headshotElement.dataset.headshotStatic === 'true';
-  let activeHeadshot = headshotElement;
-  const headshotList = [
-    "img1.webp", "img2.webp", "img8.webp", "img3.webp", "img4.webp", "img5.webp",
-    "img7.webp", "img9.webp", "img10.webp", "img11.webp", "img12.webp",
-    "img13.webp", "img14.webp", "img15.webp", "img16.webp", "img17.webp", "img18.webp"
-  ];
-  let headshotIndex = 0;
-  const headshotBase = (headshotElement.dataset.headshotBase || 'images/headshots/').replace(/\/?$/, '/');
-  const buildHeadshotSrc = (filename) => `${headshotBase}${filename}`;
-  const requestedHeadshotName = headshotElement.dataset.headshotFile || headshotElement.dataset.headshotInitial || headshotList[0];
-  const initialHeadshotIndex = headshotList.indexOf(requestedHeadshotName);
-  const hasRequestedHeadshot = initialHeadshotIndex >= 0;
-  headshotIndex = hasRequestedHeadshot ? initialHeadshotIndex : 0;
+const initHeadshotSlideshows = () => {
+  const headshotElements = document.querySelectorAll('[data-headshot-mode]');
+  if (!headshotElements.length) return;
 
-  const initStaticHeadshot = () => {
-    const initialName = hasRequestedHeadshot ? requestedHeadshotName : headshotList[0];
-    activeHeadshot.src = hasRequestedHeadshot
-      ? buildHeadshotSrc(initialName)
-      : requestedHeadshotName?.includes('/')
-        ? requestedHeadshotName
-        : buildHeadshotSrc(initialName);
-    activeHeadshot.alt = "klein cafa headshot";
+  const buildSrc = (basePath, filename) => {
+    if (!filename) return '';
+    if (/^https?:\/\//.test(filename) || filename.startsWith('/')) return filename;
+    const normalizedBase = (basePath || 'images/headshots/').replace(/\/?$/, '/');
+    return `${normalizedBase}${filename}`;
   };
-  if (!isStaticHeadshot) {
-    function updateHeadshot() {
-      const nextIndex = (headshotIndex + 1) % headshotList.length;
+
+  headshotElements.forEach(element => {
+    const mode = (element.dataset.headshotMode || 'slideshow').toLowerCase();
+    const basePath = element.dataset.headshotBase || element.getAttribute('src')?.replace(/[^/]+$/, '') || 'images/headshots/';
+    const requestedName = element.dataset.headshotFile || HEADSHOT_IMAGES[0];
+    const startIndex = HEADSHOT_IMAGES.indexOf(requestedName);
+    const startName = startIndex >= 0 ? HEADSHOT_IMAGES[startIndex] : requestedName;
+
+    if (mode === 'static') {
+      element.src = buildSrc(basePath, startName);
+      element.alt = "klein cafa headshot";
+      return;
+    }
+
+    let activeHeadshot = element;
+    let headshotIndex = startIndex >= 0 ? startIndex : 0;
+
+    const setInitialImage = () => {
+      const initialName = HEADSHOT_IMAGES[headshotIndex];
+      activeHeadshot.src = buildSrc(basePath, initialName);
+      activeHeadshot.alt = "klein cafa headshot";
+    };
+
+    const updateHeadshot = () => {
+      const nextIndex = (headshotIndex + 1) % HEADSHOT_IMAGES.length;
       const newImg = document.createElement("img");
-      newImg.src = buildHeadshotSrc(headshotList[nextIndex]);
+      newImg.src = buildSrc(basePath, HEADSHOT_IMAGES[nextIndex]);
       newImg.alt = "klein cafa headshot";
       newImg.classList.add("headshot-img");
       newImg.style.opacity = 0;
@@ -211,21 +222,20 @@ if (headshotElement) {
       newImg.onload = () => {
         setTimeout(() => {
           container.removeChild(activeHeadshot);
-          newImg.id = "headshot";
+          newImg.id = activeHeadshot.id;
           newImg.classList.remove("headshot-img");
           activeHeadshot = newImg;
         }, 500);
       };
       headshotIndex = nextIndex;
-    }
-    const initialName = hasRequestedHeadshot ? requestedHeadshotName : headshotList[0];
-    activeHeadshot.src = buildHeadshotSrc(initialName);
-    activeHeadshot.alt = "klein cafa headshot";
+    };
+
+    setInitialImage();
     setInterval(updateHeadshot, 5000);
-  } else {
-    initStaticHeadshot();
-  }
-}
+  });
+};
+
+initHeadshotSlideshows();
 
 // Fade-in effect
 const faders = document.querySelectorAll('.fade-in-section');

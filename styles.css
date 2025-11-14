@@ -605,10 +605,10 @@ li,
   font-size: 24px;
 }
 
-.about-page-values__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 15px;
+.about-page-experience__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .about-page-card {
@@ -623,6 +623,22 @@ li,
   margin-top: 0;
   margin-bottom: 8px;
   font-size: 18px;
+}
+.about-page-card__subhead {
+  margin: -6px 0 10px;
+  font-size: 14px;
+  color: #444;
+}
+
+.about-page-card__dual-headings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.about-page-card__dual-headings h4 {
+  margin-bottom: 4px;
 }
 
 .skills-grid {
@@ -1193,9 +1209,15 @@ header.hero-header {
   position: relative;
 }
 /* Indent bullet points in About section */
-.about-section .text ul {
-  padding-left: 15px;
-  list-style-position: inside;
+.about-section .text ul,
+.about-section__text ul {
+  padding-left: 30px;
+  list-style-position: outside;
+}
+
+.about-page-experience ul {
+  padding-left: 30px;
+  list-style-position: outside;
 }
 /* Project video embed styles */
 .project-video {
@@ -1330,4 +1352,12 @@ header.hero-header {
 
 body.modal-open {
   overflow: hidden;
+}
+.about-page-card {
+  border: 2px solid #357944;
+  border-radius: 12px;
+  padding: 18px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  width: 100%;
 }
