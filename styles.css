@@ -524,6 +524,7 @@ li,
   position: absolute;
   pointer-events: none;
 }
+
   
   .project-cell p {
     font-size: 14px;
@@ -551,6 +552,11 @@ li,
   
 .project-btn:hover {
   filter: brightness(1.2);
+}
+
+.project-btn--about {
+  display: inline-flex;
+  margin-top: 12px;
 }
 
 .skills-section {
