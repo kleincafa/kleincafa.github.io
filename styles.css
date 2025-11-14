@@ -965,18 +965,18 @@ li,
   }
   
   nav {
-    padding: 0 20px;
-    height: auto;
-    flex-wrap: wrap;
-    row-gap: 6px;
-    align-items: flex-start;
+    padding: 0 16px;
+    height: 50px;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
   }
 
   nav .left {
     display: flex;
     align-items: center;
-    gap: 8px;
-    width: auto;
+    gap: 6px;
+    flex: 1;
   }
 
   nav .left > a {
@@ -984,19 +984,19 @@ li,
   }
 
   .navbar-logo {
-    height: 32px;
+    height: 30px;
   }
 
   .nav-social {
     order: 2;
-    margin-left: 12px;
     gap: 6px;
-    justify-content: flex-start;
+    margin: 0 8px;
+    justify-content: flex-end;
   }
 
   .nav-social a {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
   }
 
   nav .right {
@@ -1041,10 +1041,6 @@ li,
 
   nav .right a span {
     display: none;
-  }
-
-  nav {
-    justify-content: space-between;
   }
 
   #hamburger-toggle {
