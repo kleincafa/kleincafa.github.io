@@ -509,7 +509,7 @@ li,
   font-size: 12px;
   font-weight: 600;
   padding: 3px 10px;
-  border-radius: 999px;
+  border-radius: 10px;
   background-color: rgba(53, 121, 68, 0.1);
   color: #2a6134;
 }
@@ -611,6 +611,12 @@ li,
   font-size: 24px;
 }
 
+.about-page-section h5 {
+  margin: 0;
+  font-size: 18px;
+  text-align: center;
+}
+
 .about-page-experience__grid {
   display: flex;
   flex-direction: column;
@@ -619,10 +625,18 @@ li,
 
 .about-page-card {
   border: 2px solid #357944;
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 18px;
   background-color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  cursor: default;
+}
+
+.about-page-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 0 2px rgba(53, 121, 68, 0.5), 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-color: #2a6134;
 }
 
 .about-page-card h4 {
@@ -634,6 +648,18 @@ li,
   margin: -6px 0 10px;
   font-size: 14px;
   color: #444;
+}
+
+.about-page-card__subhead a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(53, 121, 68, 0.4);
+}
+
+.about-page-card__subhead a:hover,
+.about-page-card__subhead a:focus-visible {
+  color: #357944;
+  text-decoration-color: #357944;
 }
 
 .about-page-card__dual-headings {
@@ -656,7 +682,7 @@ li,
 
 .skill-card {
   border: 2px solid #357944;
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 20px;
   background-color: #fff;
   display: flex;
@@ -684,7 +710,7 @@ li,
 
 .skill-card__project-btn {
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: 10px;
   background-color: rgba(53, 121, 68, 0.12);
   font-size: 12px;
   font-weight: 600;
@@ -1307,6 +1333,11 @@ header.hero-header {
   color: #666;
 }
 
+.course-modal__meta {
+  font-style: italic;
+  color: #444;
+}
+
 .project-modal__media {
   margin-bottom: 20px;
 }
@@ -1366,4 +1397,41 @@ body.modal-open {
   background-color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   width: 100%;
+}
+.about-page-card__courses {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.about-page-card__courses span {
+  border: 1px solid rgba(53, 121, 68, 0.4);
+  border-radius: 10px;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  background-color: rgba(53, 121, 68, 0.08);
+  color: #1f4728;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.about-page-card__courses span:hover,
+.about-page-card__courses span:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: rgba(53, 121, 68, 0.2);
+  color: #1e3b24;
+}
+
+@media (min-width: 760px) {
+  .about-page-card__courses {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }

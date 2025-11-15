@@ -134,11 +134,84 @@ const enforceAllProjectTagRows = () => {
   projectTagContainers.forEach(container => enforceProjectTagRows(container));
 };
 
+const syncCourseChipHeights = () => {
+  document.querySelectorAll('.about-page-card__courses').forEach(grid => {
+    const chips = grid.querySelectorAll('span');
+    if (!chips.length) return;
+    chips.forEach(chip => {
+      chip.style.height = '';
+    });
+    let maxHeight = 0;
+    chips.forEach(chip => {
+      const chipHeight = chip.offsetHeight;
+      if (chipHeight > maxHeight) maxHeight = chipHeight;
+    });
+    chips.forEach(chip => {
+      chip.style.height = `${maxHeight}px`;
+    });
+  });
+};
+
+const initCourseModal = () => {
+  const courseModal = document.getElementById('course-modal');
+  if (!courseModal) return;
+  const titleEl = courseModal.querySelector('.project-modal__title');
+  const metaEl = courseModal.querySelector('.course-modal__meta');
+  const descriptionEl = courseModal.querySelector('.project-modal__description');
+  const closeBtn = courseModal.querySelector('.project-modal__close');
+  const courseChips = document.querySelectorAll('.about-page-card__courses span[data-course-description]');
+  if (!courseChips.length || !titleEl || !descriptionEl) return;
+
+  const openCourseModal = (chip) => {
+    titleEl.textContent = chip.dataset.courseTitle || chip.textContent || 'Course';
+    descriptionEl.textContent = chip.dataset.courseDescription || 'Description coming soon.';
+    if (metaEl) {
+      const duration = chip.dataset.courseDuration || '';
+      metaEl.textContent = duration;
+      metaEl.style.display = duration ? 'block' : 'none';
+    }
+    courseModal.classList.add('is-open');
+    courseModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  };
+
+  const closeCourseModal = () => {
+    courseModal.classList.remove('is-open');
+    courseModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  };
+
+  courseChips.forEach(chip => {
+    chip.addEventListener('click', () => openCourseModal(chip));
+    chip.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openCourseModal(chip);
+      }
+    });
+  });
+
+  closeBtn?.addEventListener('click', closeCourseModal);
+  courseModal.addEventListener('click', (event) => {
+    if (event.target === courseModal) {
+      closeCourseModal();
+    }
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && courseModal.classList.contains('is-open')) {
+      closeCourseModal();
+    }
+  });
+};
+
 (() => {
   let resizeTimeout;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(enforceAllProjectTagRows, 150);
+    resizeTimeout = setTimeout(() => {
+      enforceAllProjectTagRows();
+      syncCourseChipHeights();
+    }, 150);
   });
 })();
 
@@ -162,6 +235,7 @@ const applySkillsToProjectCards = () => {
     enforceProjectTagRows(tagsElement);
   });
 };
+syncCourseChipHeights();
 
 // Hamburger menu toggle
 const hamburger = document.getElementById("hamburger-toggle");
@@ -236,6 +310,7 @@ const initHeadshotSlideshows = () => {
 };
 
 initHeadshotSlideshows();
+initCourseModal();
 
 // Fade-in effect
 const faders = document.querySelectorAll('.fade-in-section');
@@ -252,7 +327,7 @@ faders.forEach(section => {
   appearOnScroll.observe(section);
 });
 
-const autoRevealContainers = ['about-page', 'projects-page'];
+const autoRevealContainers = ['projects-page'];
 const revealRoot = autoRevealContainers
   .map(id => document.getElementById(id))
   .find(Boolean);
