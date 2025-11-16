@@ -470,6 +470,17 @@ if (projectModal) {
   const modalCloseBtn = projectModal.querySelector('.project-modal__close');
   const projectCards = document.querySelectorAll('.project-cells .project-cell');
 
+  const updateProjectQueryParam = (projectId) => {
+    if (!window.history?.replaceState) return;
+    const url = new URL(window.location);
+    if (projectId) {
+      url.searchParams.set('project', projectId);
+    } else {
+      url.searchParams.delete('project');
+    }
+    window.history.replaceState({}, '', url.toString());
+  };
+
   const openProjectModal = (card) => {
     if (!card) return;
 
@@ -546,6 +557,7 @@ if (projectModal) {
     });
 
     initSlideshows(modalMedia);
+    updateProjectQueryParam(card.dataset.projectId);
     projectModal.classList.add('is-open');
     projectModal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
@@ -572,6 +584,7 @@ if (projectModal) {
     projectModal.classList.remove('is-open');
     projectModal.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('modal-open');
+    updateProjectQueryParam(null);
   };
 
   projectCards.forEach(card => {
@@ -607,12 +620,6 @@ if (projectModal) {
     const targetId = params.get('project');
     if (targetId) {
       openProjectById(targetId);
-      if (history.replaceState) {
-        params.delete('project');
-        const queryString = params.toString();
-        const newUrl = `${window.location.pathname}${queryString ? `?${queryString}` : ''}${window.location.hash}`;
-        history.replaceState(null, '', newUrl);
-      }
     }
   };
 
