@@ -212,4 +212,23 @@ window.PROJECT_DATA = [
       "Version Control: Git & GitHub"
     ],
   },
+  {
+    id: "chinook-sql-analysis",
+    name: "Chinook SQL Analysis",
+    skills: [
+      "SQL",
+      "Relational Database Design",
+      "Query Optimization",
+      "Data Cleaning",
+      "Feature Grouping & Aggregation",
+      "Statistical Summaries",
+      "Data Visualization",
+      "CSV Data Handling",
+      "Window Functions",
+      "Common Table Expressions (CTEs)",
+      "Exploratory Data Analysis (EDA)",
+      "Insight Interpretation",
+      "Version Control: Git & GitHub"
+    ],
+  },
 ];
