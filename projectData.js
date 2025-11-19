@@ -231,4 +231,31 @@ window.PROJECT_DATA = [
       "Version Control: Git & GitHub"
     ],
   },
+  {
+    id: "digitnet-mnist-classification",
+    name: "DigitNet: MNIST Classification",
+    skills: [
+      "Python",
+      "PyTorch",
+      "Lightning",
+      "Torchvision",
+      "Torchmetrics",
+      "NumPy",
+      "Matplotlib",
+      "Supervised Learning",
+      "Multilayer Perceptrons (MLP)",
+      "Convolutional Neural Networks (CNN)",
+      "Model Architecture Design",
+      "Neural Network Training",
+      "ReLU Activation",
+      "Cross-Entropy Loss",
+      "Adam Optimizer",
+      "Accuracy & Loss Visualization",
+      "Data Preprocessing",
+      "Dataloaders & Batching",
+      "Model Evaluation",
+      "Version Control: Git & GitHub"
+
+    ],
+  },
 ];
