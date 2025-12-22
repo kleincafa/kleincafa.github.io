@@ -258,4 +258,26 @@ window.PROJECT_DATA = [
 
     ],
   },
+  {
+    id: "beam-me-up",
+    name: "Beam Me Up: UFO Sightings Forecast",
+    skills: [
+      "Machine Learning",
+      "Python",
+      "PyTorch",
+      "NumPy",
+      "Pandas",
+      "Matplotlib",
+      "Supervised Learning",
+      "Neural Network Training",
+      "ReLU Activation",
+      "Adam Optimizer",
+      "Model Evaluation",
+      "Data Preprocessing",
+      "Dataloaders & Batching",
+      "Accuracy & Loss Visualization",
+      "Data Visualization",
+      "Version Control: Git & GitHub"
+    ],
+  },
 ];
