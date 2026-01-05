@@ -280,4 +280,20 @@ window.PROJECT_DATA = [
       "Version Control: Git & GitHub"
     ],
   },
+  {
+    id: "kleincafa-portfolio-website",
+    name: "Personal Portfolio Website",
+    skills: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Responsive Web Design",
+      "DOM Manipulation",
+      "Data-Driven UI Rendering",
+      "Static Site Development",
+      "User Experience (UX) Design",
+      "Asset Management (Images/Resources)",
+      "Version Control: Git & GitHub"
+    ],
+  },
 ];
