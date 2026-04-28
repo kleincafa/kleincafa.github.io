@@ -233,7 +233,7 @@ window.PROJECT_DATA = [
   },
   {
     id: "digitnet-mnist-classification",
-    name: "DigitNet: MNIST Classification",
+    name: "DigitNet",
     skills: [
       "Python",
       "PyTorch",
@@ -260,7 +260,7 @@ window.PROJECT_DATA = [
   },
   {
     id: "beam-me-up",
-    name: "Beam Me Up: UFO Sightings Forecast",
+    name: "Beam Me Up",
     skills: [
       "Machine Learning",
       "Python",
@@ -282,7 +282,7 @@ window.PROJECT_DATA = [
   },
   {
     id: "kleincafa-portfolio-website",
-    name: "Personal Portfolio Website",
+    name: "kleincafa.ca",
     skills: [
       "HTML",
       "CSS",
@@ -318,7 +318,7 @@ window.PROJECT_DATA = [
   },
     {
     id: "gradebook-explorer",
-    name: "Gradebook Explorer - CSV Gradebook Dashboard",
+    name: "Gradebook Explorer",
     skills: [
       "HTML",
       "CSS",
