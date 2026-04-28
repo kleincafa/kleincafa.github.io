@@ -159,17 +159,18 @@
                     Contact me for any inquiries, collaborations, or just to say hi! I would love to hear from you!
                 </div>
 
-                <form>
+                <form id="contact-form">
                     <label for="name">Name</label>
-                    <input type="text" id="name">
+                    <input type="text" id="name" name="name" required>
 
                     <label for="email">Email</label>
-                    <input type="email" id="email">
+                    <input type="email" id="email" name="email" required>
 
                     <label for="message">Message</label>
-                    <textarea id="message" cols="30" rows="30"></textarea>
+                    <textarea id="message" name="message" cols="30" rows="30" required></textarea>
 
-                    <button type="submit">Send Message</button>
+                    <div id="contact-form-status" class="contact-form-status" aria-live="polite" hidden></div>
+                    <button type="submit" id="contact-form-submit">Send Message</button>
                 </form>
             </div>
          </section>

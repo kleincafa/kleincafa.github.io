@@ -747,3 +747,61 @@ if (typewriterTarget) {
   }
   typeCharacter();
 }
+
+// Contact form: send to klein@tomaszpuzio.ca via Formspree (no mail client)
+// Replace the form ID below with yours from https://formspree.io (e.g. "mxyzabc" from https://formspree.io/f/mxyzabc)
+const FORMSPREE_FORM_ID = 'YOUR_FORM_ID';
+const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_FORM_ID}`;
+
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+  const statusEl = document.getElementById('contact-form-status');
+  const submitBtn = document.getElementById('contact-form-submit');
+
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!statusEl || !submitBtn) return;
+
+    statusEl.hidden = true;
+    statusEl.textContent = '';
+    statusEl.removeAttribute('class');
+    statusEl.className = 'contact-form-status';
+
+    if (FORMSPREE_FORM_ID === 'YOUR_FORM_ID') {
+      statusEl.textContent = 'Form is not set up yet. Add your Formspree form ID in main.js (see comments).';
+      statusEl.classList.add('contact-form-status--error');
+      statusEl.hidden = false;
+      return;
+    }
+
+    const originalLabel = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    try {
+      const formData = new FormData(contactForm);
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: formData,
+        headers: { Accept: 'application/json' }
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        statusEl.textContent = 'Thanks! Your message was sent.';
+        statusEl.classList.add('contact-form-status--success');
+        contactForm.reset();
+      } else {
+        statusEl.textContent = data.error || 'Something went wrong. Please try again.';
+        statusEl.classList.add('contact-form-status--error');
+      }
+    } catch (_) {
+      statusEl.textContent = 'Something went wrong. Please try again.';
+      statusEl.classList.add('contact-form-status--error');
+    }
+
+    statusEl.hidden = false;
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalLabel;
+  });
+}

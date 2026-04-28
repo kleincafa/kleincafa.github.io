@@ -296,4 +296,24 @@ window.PROJECT_DATA = [
       "Version Control: Git & GitHub"
     ],
   },
+  {
+    id: "memory-match",
+    name: "Memory Match",
+    skills: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Bulma",
+      "Responsive Web Design",
+      "DOM Manipulation",
+      "Event-Driven Programming",
+      "Game Logic Implementation",
+      "State Management",
+      "Data-Driven UI Rendering",
+      "Static Site Development",
+      "User Experience (UX) Design",
+      "Asset Management (Images/Resources)",
+      "Version Control: Git & GitHub"
+    ],
+  },
 ];
