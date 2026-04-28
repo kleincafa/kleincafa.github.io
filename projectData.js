@@ -343,4 +343,25 @@ window.PROJECT_DATA = [
       "Version Control: Git & GitHub"
     ],
   },
+  {
+    id: "lockdin-squared",
+    name: "LockdIn² - Collaborative Study Companion",
+    skills: [
+    "Software Systems, Development & Integration",
+    "Java",
+    "JavaFX",
+    "GUI Development",
+    "Client-Server Architecture",
+    "Socket Programming",
+    "Multi-Threading",
+    "User Authentication",
+    "Local Data Persistence",
+    "Model-View Separation",
+    "Collaborative Features",
+    "Pomodoro Timer",
+    "Whiteboard Collaboration",
+    "Asynchronous Programming",
+    "Version Control: Git & GitHub"
+    ],
+  },
 ];
