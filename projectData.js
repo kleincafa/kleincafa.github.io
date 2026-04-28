@@ -316,4 +316,31 @@ window.PROJECT_DATA = [
       "Version Control: Git & GitHub"
     ],
   },
+    {
+    id: "gradebook-explorer",
+    name: "Gradebook Explorer - CSV Gradebook Dashboard",
+    skills: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "D3.js",
+      "Responsive Web Design",
+      "DOM Manipulation",
+      "Event-Driven Programming",
+      "Data-Driven UI Rendering",
+      "CSV Data Handling",
+      "Data Visualization",
+      "Statistical Summaries",
+      "Input Validation",
+      "User Input Validation",
+      "Form Handling & Validation",
+      "Inline Editing",
+      "State Management",
+      "Static Site Development",
+      "User Experience (UX) Design",
+      "Asset Management (Images/Resources)",
+      "Version Control: Git & GitHub"
+    ],
+  },
 ];
